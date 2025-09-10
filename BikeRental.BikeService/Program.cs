@@ -1,13 +1,15 @@
+using BikeRental.BikeService.Infrastructure;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
+var fileName = builder.Configuration.GetConnectionString("WebApiDatabase");
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddInfrastructure(fileName);
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 var app = builder.Build();
