@@ -10,3 +10,5 @@ Content-Type: application/json
 }
 
 ###
+GET {{BikeRental.BikeService_HostAddress}}/bike/
+Accept: application/json

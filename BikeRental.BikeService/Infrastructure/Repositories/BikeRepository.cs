@@ -1,5 +1,6 @@
 ﻿using BikeRental.BikeService.Domain.Entities;
 using BikeRental.BikeService.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace BikeRental.BikeService.Infrastructure.Repositories
 {
@@ -13,6 +14,11 @@ namespace BikeRental.BikeService.Infrastructure.Repositories
         public async Task AddBike(Bike bike)
         {
             await _dbSet.AddAsync(bike);
+        }
+
+        public IEnumerable<Bike> Get()
+        {
+            return _dbSet;
         }
     }
 }

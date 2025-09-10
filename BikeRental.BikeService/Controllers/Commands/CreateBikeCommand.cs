@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using BikeRental.BikeService.Domain.Entities;
+using BikeRental.BikeService.Domain.Repositories;
+using MediatR;
 
 namespace BikeRental.BikeService.Controllers.Commands
 {
@@ -11,9 +13,23 @@ namespace BikeRental.BikeService.Controllers.Commands
 
     public class CreateBikeCommandHandler : IRequestHandler<CreateBikeCommand>
     {
-        public Task Handle(CreateBikeCommand request, CancellationToken cancellationToken)
+        private readonly IBikeRepository _bikeRepository;
+
+        public CreateBikeCommandHandler(IBikeRepository bikeRepository)
         {
-            throw new NotImplementedException();
+            _bikeRepository = bikeRepository;
+        }
+
+        public async Task Handle(CreateBikeCommand request, CancellationToken cancellationToken)
+        {
+            await _bikeRepository.AddBike(new Bike
+            {
+                Model = request.Model,
+                Color = request.Color,
+                LastServiceDate = request.LastServiceDate,
+            });
+
+            await _bikeRepository.SaveChangesAsync();
         }
     }
 }

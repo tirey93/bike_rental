@@ -5,8 +5,13 @@ namespace BikeRental.BikeService.Domain
     public class Entity
     {
         [Key]
-        public int Id { get; set; }
+        public int Id { get; private set; }
 
-        public Guid ExternalId { get; set; }
+        public Guid ExternalId { get; private set; }
+
+        public Entity() 
+        {
+            ExternalId = Guid.NewGuid();
+        }
     }
 }
