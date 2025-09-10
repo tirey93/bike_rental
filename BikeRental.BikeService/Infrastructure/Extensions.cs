@@ -10,7 +10,6 @@ namespace BikeRental.BikeService.Infrastructure
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlite(filename));
             services.AddScoped<IBikeRepository, BikeRepository>();
-
         }
     }
 }
