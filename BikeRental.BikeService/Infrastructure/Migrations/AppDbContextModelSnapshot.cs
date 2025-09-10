@@ -37,7 +37,7 @@ namespace BikeRental.BikeService.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Bikes");
+                    b.ToTable("Bikes", (string)null);
                 });
 #pragma warning restore 612, 618
         }
