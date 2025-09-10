@@ -1,0 +1,6 @@
+@BikeRental.StationService_HostAddress = http://localhost:5139
+
+GET {{BikeRental.StationService_HostAddress}}/station/
+Accept: application/json
+
+###
