@@ -1,3 +1,5 @@
+using BikeRental.StationService.Controllers.Commands;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeRental.StationService.Controllers
@@ -6,28 +8,28 @@ namespace BikeRental.StationService.Controllers
     [Route("[controller]")]
     public class StationController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<StationController> _logger;
 
-        public StationController(ILogger<StationController> logger)
+        private readonly IMediator _mediator;
+
+        public StationController(ILogger<StationController> logger, IMediator mediator)
         {
             _logger = logger;
+            _mediator = mediator;
         }
 
-        [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpPost]
+        public async Task<ActionResult> Create([FromBody] CreateStationCommand command)
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            try
             {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+                await _mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
         }
     }
 }

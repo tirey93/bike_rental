@@ -1,6 +1,6 @@
 ﻿using BikeRental.StationService.Domain.Repositories;
+using BikeRental.StationService.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using StationRental.StationService.Infrastructure.Repositories;
 
 namespace BikeRental.StationService.Infrastructure
 {

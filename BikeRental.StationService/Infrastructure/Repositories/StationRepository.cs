@@ -2,7 +2,7 @@
 using BikeRental.StationService.Domain.Repositories;
 using BikeRental.StationService.Infrastructure;
 
-namespace StationRental.StationService.Infrastructure.Repositories
+namespace BikeRental.StationService.Infrastructure.Repositories
 {
     public class StationRepository : Repository<Station>, IStationRepository
     {
