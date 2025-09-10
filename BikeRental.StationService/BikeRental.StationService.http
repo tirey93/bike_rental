@@ -12,3 +12,19 @@ Content-Type: application/json
 ###
 GET {{BikeRental.StationService_HostAddress}}/station/
 Accept: application/json
+
+###
+POST {{BikeRental.StationService_HostAddress}}/station/1/bike
+Accept: application/json
+Content-Type: application/json
+{
+  "externalBikeId": "052DD06B-A15F-4F41-9F8C-7A99ECECEC37"
+}
+
+###
+DELETE {{BikeRental.StationService_HostAddress}}/station/1/bike
+Accept: application/json
+Content-Type: application/json
+{
+  "externalBikeId": "052DD06B-A15F-4F41-9F8C-7A99ECECEC36"
+}

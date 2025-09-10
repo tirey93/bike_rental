@@ -1,6 +1,7 @@
 ﻿using BikeRental.StationService.Domain.Entities;
 using BikeRental.StationService.Domain.Repositories;
 using BikeRental.StationService.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace BikeRental.StationService.Infrastructure.Repositories
 {
@@ -19,6 +20,13 @@ namespace BikeRental.StationService.Infrastructure.Repositories
         public IEnumerable<Station> Get()
         {
             return _dbSet;
+        }
+
+        public Station Get(int id)
+        {
+            return _dbSet
+                .Include(x => x.BikesAtStation)
+                .FirstOrDefault(x => x.Id == id);
         }
     }
 }

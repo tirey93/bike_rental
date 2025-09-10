@@ -6,5 +6,6 @@ namespace BikeRental.StationService.Domain.Repositories
     {
         Task AddStation(Station station);
         IEnumerable<Station> Get();
+        Station Get(int id);
     }
 }

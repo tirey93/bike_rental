@@ -21,5 +21,16 @@ namespace BikeRental.StationService.Domain.Entities
 
             BikesAtStation.Add(new BikeAtStation(this, bikeExternalId));
         }
+
+        public void RemoveBike(Guid bikeExternalId)
+        {
+            var bikeAtStation = BikesAtStation.FirstOrDefault(x => x.BikeExternalId == bikeExternalId);
+            if (bikeAtStation == null)
+            {
+                throw new BikeNotExistsAtStationException(bikeExternalId, this);
+            }
+
+            BikesAtStation.Remove(bikeAtStation);
+        }
     }
 }
