@@ -4,9 +4,9 @@ POST {{BikeRental.BikeService_HostAddress}}/bike/
 Accept: application/json
 Content-Type: application/json
 {
-  "model": "Trek FX 3 Disc",
-  "color": "Black",
-  "lastServiceDate": "2024-08-07"
+  "model": "Trek FX 3 Disc1",
+  "color": "Blac1k",
+  "lastServiceDate": "2024-08-08"
 }
 
 ###

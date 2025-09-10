@@ -1,6 +1,14 @@
 @BikeRental.StationService_HostAddress = http://localhost:5139
 
-GET {{BikeRental.StationService_HostAddress}}/station/
+POST {{BikeRental.BikeService_HostAddress}}/station/
 Accept: application/json
+Content-Type: application/json
+{
+  "code": "ST001",
+  "location": "Lodz, Piotrkowska 100",
+  "capacity": 30
+}
 
 ###
+GET {{BikeRental.BikeService_HostAddress}}/station/
+Accept: application/json
