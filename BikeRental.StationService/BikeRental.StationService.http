@@ -1,6 +1,6 @@
 @BikeRental.StationService_HostAddress = http://localhost:5139
 
-POST {{BikeRental.BikeService_HostAddress}}/station/
+POST {{BikeRental.StationService_HostAddress}}/station/
 Accept: application/json
 Content-Type: application/json
 {
@@ -10,5 +10,5 @@ Content-Type: application/json
 }
 
 ###
-GET {{BikeRental.BikeService_HostAddress}}/station/
+GET {{BikeRental.StationService_HostAddress}}/station/
 Accept: application/json

@@ -1,4 +1,5 @@
 using BikeRental.StationService.Infrastructure;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var fileName = builder.Configuration.GetConnectionString("WebApiDatabase");
@@ -10,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(fileName);
-
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 var app = builder.Build();
 
