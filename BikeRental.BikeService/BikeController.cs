@@ -1,10 +1,10 @@
-using BikeRental.BikeService.Controllers.Commands;
-using BikeRental.BikeService.Controllers.Queries;
+using BikeRental.BikeService.Application.CommandHandlers;
+using BikeRental.BikeService.Application.QueryHandlers;
 using BikeRental.BikeService.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BikeRental.BikeService.Controllers
+namespace BikeRental.BikeService
 {
     [ApiController]
     [Route("[controller]")]

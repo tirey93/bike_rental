@@ -17,4 +17,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="BikeRental.BikeService.Contracts">
+      <HintPath>..\BikeRental.BikeService.Contracts\bin\Release\net8.0\BikeRental.BikeService.Contracts.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

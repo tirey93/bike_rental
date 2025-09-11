@@ -2,7 +2,7 @@
 using BikeRental.BikeService.Responses;
 using MediatR;
 
-namespace BikeRental.BikeService.Controllers.Queries
+namespace BikeRental.BikeService.Application.QueryHandlers
 {
     public class GetAllBikesQuery : IRequest<IEnumerable<BikeResponse>>
     {

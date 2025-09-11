@@ -1,9 +1,10 @@
-﻿using BikeRental.BikeService.Domain.Entities;
+﻿using BikeRental.BikeService.Contracts.Events;
+using BikeRental.BikeService.Domain.Entities;
 using BikeRental.BikeService.Domain.Repositories;
 using MediatR;
 using Rebus.Bus;
 
-namespace BikeRental.BikeService.Controllers.Commands
+namespace BikeRental.BikeService.Application.CommandHandlers
 {
     public class CreateBikeCommand : IRequest
     {
@@ -25,15 +26,15 @@ namespace BikeRental.BikeService.Controllers.Commands
 
         public async Task Handle(CreateBikeCommand request, CancellationToken cancellationToken)
         {
-            await _bus.Publish("To jest moja testowa wiadomość! Hello RabbitMQ!");
+            //await _bus.Publish("To jest moja testowa wiadomość! Hello RabbitMQ!");
 
-            //await _bus.Publish(new BikeCreatedEvent
-            //{
-            //    Color = request.Color,
-            //    ExternalBikeId = Guid.NewGuid(),
-            //    LastServiceDate = request.LastServiceDate,
-            //    Model = request.Model,
-            //});
+            await _bus.Publish(new BikeCreatedEvent
+            {
+                Color = request.Color,
+                ExternalBikeId = Guid.NewGuid(),
+                LastServiceDate = request.LastServiceDate,
+                Model = request.Model,
+            });
             //await _bikeRepository.AddBike(new Bike
             //{
             //    Model = request.Model,

@@ -1,10 +1,10 @@
-using BikeRental.StationService.Controllers.Commands;
-using BikeRental.StationService.Controllers.Queries;
+using BikeRental.StationService.Application.CommandHandlers;
+using BikeRental.StationService.Application.QueryHandlers;
 using BikeRental.StationService.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BikeRental.StationService.Controllers
+namespace BikeRental.StationService
 {
     [ApiController]
     [Route("[controller]")]
@@ -21,7 +21,7 @@ namespace BikeRental.StationService.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody] CreateStationCommand command)
+        public async Task<ActionResult> Create([FromBody] CreateStationCommandHandler command)
         {
             try
             {

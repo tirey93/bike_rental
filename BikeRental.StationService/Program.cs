@@ -1,9 +1,7 @@
+using BikeRental.BikeService.Contracts.Events;
 using BikeRental.StationService.Infrastructure;
 using Rebus.Bus;
 using Rebus.Config;
-using Rebus.Handlers;
-using Rebus.Routing.TypeBased;
-using StationService.Handlers;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,7 +32,7 @@ app.Lifetime.ApplicationStarted.Register(async () =>
     using var scope = app.Services.CreateScope();
     var bus = scope.ServiceProvider.GetRequiredService<IBus>();
 
-    await bus.Subscribe<string>();
+    await bus.Subscribe<BikeCreatedEvent>();
 });
 
 if (app.Environment.IsDevelopment())
