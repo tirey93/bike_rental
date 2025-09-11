@@ -8,5 +8,10 @@
         {
             ExternalId = Guid.NewGuid();
         }
+
+        public ExternalEntity(Guid externalId)
+        {
+            ExternalId = externalId;
+        }
     }
 }

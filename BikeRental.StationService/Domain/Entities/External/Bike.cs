@@ -2,6 +2,7 @@
 {
     public class Bike : ExternalEntity
     {
-
+        public Bike() { }
+        public Bike(Guid externalId) :base(externalId) { }
     }
 }

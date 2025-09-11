@@ -26,23 +26,19 @@ namespace BikeRental.BikeService.Application.CommandHandlers
 
         public async Task Handle(CreateBikeCommand request, CancellationToken cancellationToken)
         {
-            //await _bus.Publish("To jest moja testowa wiadomość! Hello RabbitMQ!");
+            var bike = new Bike
+            {
+                Model = request.Model,
+                Color = request.Color,
+                LastServiceDate = request.LastServiceDate,
+            };
+            await _bikeRepository.AddBike(bike);
 
             await _bus.Publish(new BikeCreatedEvent
             {
-                Color = request.Color,
-                ExternalBikeId = Guid.NewGuid(),
-                LastServiceDate = request.LastServiceDate,
-                Model = request.Model,
+                ExternalBikeId = bike.ExternalId,
             });
-            //await _bikeRepository.AddBike(new Bike
-            //{
-            //    Model = request.Model,
-            //    Color = request.Color,
-            //    LastServiceDate = request.LastServiceDate,
-            //});
-
-            //await _bikeRepository.SaveChangesAsync();
+            await _bikeRepository.SaveChangesAsync();
         }
     }
 }
