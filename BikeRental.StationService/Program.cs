@@ -1,4 +1,3 @@
-using BikeRental.StationService.Events;
 using BikeRental.StationService.Infrastructure;
 using Rebus.Bus;
 using Rebus.Config;
@@ -28,7 +27,6 @@ builder.Services.AddRebus(configure => configure
 
 builder.Services.AutoRegisterHandlersFromAssemblyOf<Program>();
 
-
 var app = builder.Build();
 
 app.Lifetime.ApplicationStarted.Register(async () =>
@@ -39,7 +37,6 @@ app.Lifetime.ApplicationStarted.Register(async () =>
     await bus.Subscribe<string>();
 });
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

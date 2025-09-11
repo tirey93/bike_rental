@@ -1,6 +1,5 @@
 ﻿using BikeRental.BikeService.Domain.Entities;
 using BikeRental.BikeService.Domain.Repositories;
-using BikeRental.BikeService.Events;
 using MediatR;
 using Rebus.Bus;
 

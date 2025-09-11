@@ -1,4 +1,3 @@
-using BikeRental.BikeService.Events;
 using BikeRental.BikeService.Infrastructure;
 using Rebus.Config;
 using Rebus.Routing.TypeBased;
@@ -27,7 +26,6 @@ builder.Services.AddRebus(configure => configure
 );
 
 builder.Services.AutoRegisterHandlersFromAssemblyOf<Program>();
-
 
 var app = builder.Build();
 
