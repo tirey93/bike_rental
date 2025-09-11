@@ -7,9 +7,8 @@ namespace BikeRental.StationService.Application.EventHandlers
     {
         private readonly ILogger<BikeCreatedEventHandler> _logger;
 
-        public BikeCreatedEventHandler(ILogger<BikeCreatedEventHandler> logger)
+        public BikeCreatedEventHandler()
         {
-            _logger = logger;
         }
 
         public async Task Handle(BikeCreatedEvent message)
