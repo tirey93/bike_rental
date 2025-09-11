@@ -1,4 +1,7 @@
+using BikeRental.BikeService.Events;
 using BikeRental.BikeService.Infrastructure;
+using Rebus.Config;
+using Rebus.Routing.TypeBased;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +14,20 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(fileName);
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
+
+
+builder.Services.AddRebus(configure => configure
+    .Transport(t => t.UseRabbitMq(
+        connectionString: "amqp://localhost",
+        inputQueueName: "bike-service-input-queue")
+    )
+    .Logging(l => l.Console())
+    .Options(o => o.LogPipeline(verbose: true))
+);
+
+builder.Services.AutoRegisterHandlersFromAssemblyOf<Program>();
+
 
 var app = builder.Build();
 
