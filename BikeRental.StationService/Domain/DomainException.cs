@@ -1,4 +1,4 @@
-﻿namespace BikeRental.StationService.Domain.Entities
+﻿namespace BikeRental.StationService.Domain
 {
     public class DomainException : Exception
     {
