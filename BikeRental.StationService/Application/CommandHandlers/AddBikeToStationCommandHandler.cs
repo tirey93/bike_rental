@@ -30,20 +30,20 @@ namespace BikeRental.StationService.Application.CommandHandlers
 
         public async Task Handle(AddBikeToStationCommand request, CancellationToken cancellationToken)
         {
+            var bike = await _bikeRepository.Get(request.ExternalBikeId);
+            if (bike == null)
+            {
+                throw new BikeNotExistsException(request.ExternalBikeId);
+            }
+
+            var station = _stationRepository.Get(request.StationId);
+            station.AddBike(request.ExternalBikeId);
             await _bus.Publish(new BikeAtStationAddedEvent
             {
                 ExternalBikeId = request.ExternalBikeId,
-                ExternalStationId = Guid.NewGuid(),
+                ExternalStationId = station.ExternalId,
             });
-            //var bike = await _bikeRepository.Get(request.ExternalBikeId);
-            //if (bike == null)
-            //{
-            //    throw new BikeNotExistsException(request.ExternalBikeId);
-            //}
-            //var station = _stationRepository.Get(request.StationId);
-            //station.AddBike(request.ExternalBikeId);
-
-            //await _stationRepository.SaveChangesAsync();
+            await _stationRepository.SaveChangesAsync();
         }
     }
 }

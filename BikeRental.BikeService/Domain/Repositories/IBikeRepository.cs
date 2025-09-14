@@ -6,5 +6,6 @@ namespace BikeRental.BikeService.Domain.Repositories
     {
         Task AddBike(Bike bike);
         IEnumerable<Bike> Get();
+        Task<Bike> Get(Guid externalId);
     }
 }
