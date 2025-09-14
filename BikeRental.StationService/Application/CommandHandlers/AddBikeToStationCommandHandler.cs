@@ -1,6 +1,10 @@
-﻿using BikeRental.StationService.Application.Exceptions;
+﻿using BikeRental.BikeService.Contracts.Events;
+using BikeRental.StationService.Application.Exceptions;
+using BikeRental.StationService.Contracts.Events;
+using BikeRental.StationService.Domain.Entities.External;
 using BikeRental.StationService.Domain.Repositories;
 using MediatR;
+using Rebus.Bus;
 
 namespace BikeRental.StationService.Application.CommandHandlers
 {
@@ -15,24 +19,31 @@ namespace BikeRental.StationService.Application.CommandHandlers
     {
         private readonly IStationRepository _stationRepository;
         private readonly IBikeRepository _bikeRepository;
+        private readonly IBus _bus;
 
-        public AddBikeToStationCommandHandler(IStationRepository stationRepository, IBikeRepository bikeRepository)
+        public AddBikeToStationCommandHandler(IStationRepository stationRepository, IBikeRepository bikeRepository, IBus bus)
         {
             _stationRepository = stationRepository;
             _bikeRepository = bikeRepository;
+            _bus = bus;
         }
 
         public async Task Handle(AddBikeToStationCommand request, CancellationToken cancellationToken)
         {
-            var bike = await _bikeRepository.Get(request.ExternalBikeId);
-            if (bike == null)
+            await _bus.Publish(new BikeAtStationAddedEvent
             {
-                throw new BikeNotExistsException(request.ExternalBikeId);
-            }
-            var station = _stationRepository.Get(request.StationId);
-            station.AddBike(request.ExternalBikeId);
+                ExternalBikeId = request.ExternalBikeId,
+                ExternalStationId = Guid.NewGuid(),
+            });
+            //var bike = await _bikeRepository.Get(request.ExternalBikeId);
+            //if (bike == null)
+            //{
+            //    throw new BikeNotExistsException(request.ExternalBikeId);
+            //}
+            //var station = _stationRepository.Get(request.StationId);
+            //station.AddBike(request.ExternalBikeId);
 
-            await _stationRepository.SaveChangesAsync();
+            //await _stationRepository.SaveChangesAsync();
         }
     }
 }
