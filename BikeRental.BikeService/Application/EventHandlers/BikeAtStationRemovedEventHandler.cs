@@ -16,8 +16,7 @@ namespace BikeRental.BikeService.Application.EventHandlers
         }
         public async Task Handle(BikeAtStationRemovedEvent message)
         {
-            var res = await _bikeAtStationRepository.Get();
-            var bikeAtStation = res.FirstOrDefault(x => x.Bike.ExternalId.ToString().ToLower() == message.ExternalBikeId.ToString().ToLower() && x.StationExternalId.ToString().ToLower() == message.ExternalStationId.ToString().ToLower());;
+            var bikeAtStation = await _bikeAtStationRepository.Get(message.ExternalBikeId, message.ExternalStationId);
             if (bikeAtStation != null)
             {
                 _bikeAtStationRepository.RemoveBikeAtStation(bikeAtStation);

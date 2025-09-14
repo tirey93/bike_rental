@@ -20,14 +20,12 @@ namespace BikeRental.StationService.Application.CommandHandlers
         private readonly IStationRepository _stationRepository;
         private readonly IBikeRepository _bikeRepository;
         private readonly IBus _bus;
-        private readonly IBikeAtStationRepository _bikeAtStationRepository;
 
-        public AddBikeToStationCommandHandler(IStationRepository stationRepository, IBikeRepository bikeRepository, IBus bus, IBikeAtStationRepository bikeAtStationRepository)
+        public AddBikeToStationCommandHandler(IStationRepository stationRepository, IBikeRepository bikeRepository, IBus bus)
         {
             _stationRepository = stationRepository;
             _bikeRepository = bikeRepository;
             _bus = bus;
-            _bikeAtStationRepository = bikeAtStationRepository;
         }
 
         public async Task Handle(AddBikeToStationCommand request, CancellationToken cancellationToken)
@@ -39,9 +37,7 @@ namespace BikeRental.StationService.Application.CommandHandlers
             }
 
             var station = _stationRepository.Get(request.StationId);
-
-            _bikeAtStationRepository.AddBikeToStation(new Domain.Entities.BikeAtStation(station, request.ExternalBikeId));
-            await _bikeAtStationRepository.SaveChangesAsync();
+            station.AddBike(request.ExternalBikeId);
 
             await _bus.Publish(new BikeAtStationAddedEvent
             {

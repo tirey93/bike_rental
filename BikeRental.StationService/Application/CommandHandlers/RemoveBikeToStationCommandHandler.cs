@@ -42,7 +42,7 @@ namespace BikeRental.StationService.Application.CommandHandlers
                 ExternalBikeId = request.ExternalBikeId,
                 ExternalStationId = station.ExternalId,
             });
-            //await _stationRepository.SaveChangesAsync();
+            await _stationRepository.SaveChangesAsync();
         }
     }
 }
