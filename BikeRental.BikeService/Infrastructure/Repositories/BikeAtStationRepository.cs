@@ -7,7 +7,7 @@ namespace BikeRental.BikeService.Infrastructure.Repositories
     public class BikeAtStationRepository : Repository<BikeAtStation>, IBikeAtStationRepository
     {
         public BikeAtStationRepository(AppDbContext appDbContext)
-            : base(appDbContext, appDbContext.BikeAtStations)
+            : base(appDbContext, appDbContext.ExternalBikeAtStations)
         {
         }
 
