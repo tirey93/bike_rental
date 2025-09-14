@@ -1,7 +1,8 @@
 ﻿using BikeRental.StationService.Application.Exceptions;
+using BikeRental.StationService.Contracts.Events;
 using BikeRental.StationService.Domain.Repositories;
-using BikeRental.StationService.Infrastructure.Repositories;
 using MediatR;
+using Rebus.Bus;
 
 namespace BikeRental.StationService.Application.CommandHandlers
 {
@@ -16,11 +17,15 @@ namespace BikeRental.StationService.Application.CommandHandlers
     {
         private readonly IStationRepository _stationRepository;
         private readonly IBikeRepository _bikeRepository;
+        private readonly IBus _bus;
+        private readonly IBikeAtStationRepository _bikeAtStationRepository;
 
-        public RemoveBikeToStationCommandHandler(IStationRepository stationRepository, IBikeRepository bikeRepository)
+        public RemoveBikeToStationCommandHandler(IStationRepository stationRepository, IBikeRepository bikeRepository, IBus bus, IBikeAtStationRepository bikeAtStationRepository)
         {
             _stationRepository = stationRepository;
             _bikeRepository = bikeRepository;
+            _bus = bus;
+            _bikeAtStationRepository = bikeAtStationRepository;
         }
 
         public async Task Handle(RemoveBikeToStationCommand request, CancellationToken cancellationToken)
@@ -32,8 +37,12 @@ namespace BikeRental.StationService.Application.CommandHandlers
             }
             var station = _stationRepository.Get(request.StationId);
             station.RemoveBike(request.ExternalBikeId);
-
-            await _stationRepository.SaveChangesAsync();
+            await _bus.Publish(new BikeAtStationRemovedEvent
+            {
+                ExternalBikeId = request.ExternalBikeId,
+                ExternalStationId = station.ExternalId,
+            });
+            //await _stationRepository.SaveChangesAsync();
         }
     }
 }

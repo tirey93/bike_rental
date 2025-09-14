@@ -22,7 +22,7 @@ namespace BikeRental.BikeService.Application.EventHandlers
             {
                 var bike = await _bikeRepository.Get(message.ExternalBikeId);
                 await _bikeAtStationRepository.AddBikeAtStation(new BikeAtStation(bike, message.ExternalStationId));
-                await _bikeAtStationRepository.SaveChangesAsync();
+                //await _bikeAtStationRepository.SaveChangesAsync();
             }
         }
     }

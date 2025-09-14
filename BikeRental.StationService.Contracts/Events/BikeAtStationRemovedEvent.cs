@@ -1,6 +1,6 @@
 ﻿namespace BikeRental.StationService.Contracts.Events
 {
-    public class BikeAtStationRemoveEvent
+    public class BikeAtStationRemovedEvent
     {
         public Guid ExternalBikeId { get; set; }
         public Guid ExternalStationId { get; set; }

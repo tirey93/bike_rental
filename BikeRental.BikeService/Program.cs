@@ -38,6 +38,7 @@ app.Lifetime.ApplicationStarted.Register(async () =>
     var bus = scope.ServiceProvider.GetRequiredService<IBus>();
 
     await bus.Subscribe<BikeAtStationAddedEvent>();
+    await bus.Subscribe<BikeAtStationRemovedEvent>();
 });
 
 // Configure the HTTP request pipeline.
