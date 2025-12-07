@@ -21,7 +21,7 @@ namespace BikeRental.StationService
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody] CreateStationCommandHandler command)
+        public async Task<ActionResult> Create([FromBody] CreateStationCommand command)
         {
             try
             {
