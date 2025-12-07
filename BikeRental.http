@@ -20,6 +20,3 @@ Content-Type: application/json
   "lastServiceDate": "2024-08-09"
 }
 
-###
-GET {BikeRental.BikeService_HostAddress}/bike/
-Accept: application/json
