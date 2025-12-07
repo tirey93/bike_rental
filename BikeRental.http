@@ -1,5 +1,8 @@
-@BikeService_HostAddress = http://localhost:5146
-@StationService_HostAddress = http://localhost:5139
+# @BikeService_HostAddress = http://localhost:5146
+# @StationService_HostAddress = http://localhost:5139
+
+@BikeService_HostAddress = http://localhost:5001
+@StationService_HostAddress = http://localhost:5002
 
 ###
 GET {{BikeService_HostAddress}}/bike/
@@ -15,8 +18,8 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "model": "Trek FX 3 Disc12",
-  "color": "Blac2k",
-  "lastServiceDate": "2024-08-09"
+  "model": "Trek FX 3 Disc123",
+  "color": "Blac3k",
+  "lastServiceDate": "2024-08-10"
 }
 

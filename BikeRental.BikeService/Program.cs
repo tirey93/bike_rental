@@ -8,6 +8,7 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var fileName = builder.Configuration.GetConnectionString("WebApiDatabase");
+var rabbitHost = builder.Configuration["RabbitMQ:Hostname"] ?? "localhost";
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -21,7 +22,7 @@ builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.Get
 
 builder.Services.AddRebus(configure => configure
     .Transport(t => t.UseRabbitMq(
-        connectionString: "amqp://localhost",
+        connectionString: "amqp://" + rabbitHost,
         inputQueueName: "bike-service-input-queue")
     )
     .Logging(l => l.Console())

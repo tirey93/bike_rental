@@ -24,8 +24,6 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:80
-      - RabbitMQ__Hostname=rabbitmq
-      - ConnectionStrings__DefaultConnection=Data Source=/app/Data/BikeService.db
     volumes:
       # Mapuj lokalną bazę do kontenera
       - ../databases/BikeService:/app/Data
@@ -44,8 +42,6 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:80
-      - RabbitMQ__Hostname=rabbitmq
-      - ConnectionStrings__DefaultConnection=Data Source=/app/Data/StationService.db
     volumes:
       # Mapuj lokalną bazę do kontenera
       - ../databases/StationService:/app/Data
