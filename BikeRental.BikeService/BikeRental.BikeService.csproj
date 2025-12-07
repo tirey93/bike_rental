@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BikeRental.StationService.Contracts" Version="1.0.0" />
     <PackageReference Include="MediatR" Version="13.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.20">
       <PrivateAssets>all</PrivateAssets>
@@ -20,10 +21,4 @@
   <ItemGroup>
     <ProjectReference Include="..\BikeRental.BikeService.Contracts\BikeRental.BikeService.Contracts.csproj" />
   </ItemGroup>
-	<ItemGroup>
-		<Reference Include="BikeRental.StationService.Contracts">
-			<HintPath>..\BikeRental.StationService.Contracts\bin\Release\net8.0\BikeRental.StationService.Contracts.dll</HintPath>
-		</Reference>
-	</ItemGroup>
-
 </Project>
