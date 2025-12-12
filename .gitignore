@@ -1,4 +1,3 @@
-/*.db
-/*.db-wal
-/*.db-shm
+databases/*Service/*.db
+databases/*Service/*.db-*
 nuget-local/*.nupkg
