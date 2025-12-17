@@ -1,13 +1,18 @@
-import { Button } from '../atoms/Button';
+import { Button } from '../common/atoms/Button';
+import { Label } from '../common/atoms/Label';
+import { Title } from '../common/atoms/Title';
+import FormField from '../common/molecules/FormField';
 import { AppProviders } from '../providers/AppProviders';
-import { Wrapper } from './App.styles';
+import { FormWrapper, Wrapper } from './App.styles';
 
 function App() {
   return (
     <AppProviders>
-      <Wrapper>
-        <Button>Test</Button>
-      </Wrapper>
+      <FormWrapper>
+        <FormField label='Login' name='login' id='login' placeholder='login'></FormField>
+        <FormField label='Password' name='password' id='password' placeholder='password' type='password'></FormField>
+        <Button type='submit'>Sign in</Button>
+      </FormWrapper>
     </AppProviders>
   );
 }

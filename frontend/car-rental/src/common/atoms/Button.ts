@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ThemeType } from '../assets/theme';
+import { ThemeType } from '../../assets/theme';
 
 interface ButtonProps {
   isBig?: boolean;
