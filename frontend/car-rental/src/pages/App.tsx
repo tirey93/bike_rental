@@ -1,14 +1,13 @@
-import { AppProviders } from '../providers/AppProviders';
 import { SignIn } from '../components/SignIn/SignIn';
 import { useAuth } from '../hooks/useAuth';
+import { Main } from './Main';
 
 function App() {
   const {user, signIn, signOut} = useAuth();
-
   return (
-    <AppProviders>
-      <SignIn></SignIn>
-    </AppProviders>
+    <>
+      {user ? <Main></Main> : <SignIn></SignIn>}
+    </>
   );
 }
 

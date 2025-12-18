@@ -1,57 +1,33 @@
 import React, { PropsWithChildren, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { useError } from './useError.';
 
 const AuthContext = React.createContext({} as AuthContextType);
 
-export interface SignInType {
-  login: string;
-  password: string;
-}
+
 export interface AuthContextType {
   user: string | null;
-  signIn: ({login, password}: SignInType) => void;
+  signIn: (login: string) => void;
   signOut: () => void;
 }
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
-  const [user, setUser] = useState(null);
-  const { dispatchError } = useError();
+  const [user, setUser] = useState<string | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      (async () => {
-        try {
-          const response = await axios.get('/me', {
-            headers: {
-              authorization: `Bearer ${token}`,
-            },
-          });
-          setUser(response.data);
-        } catch (e) {
-          console.log(e);
-        }
-      })();
+    const user = localStorage.getItem('user');
+    if (user) {
+      setUser(user);
     }
   }, []);
 
-  const signIn = async ({ login, password }: SignInType) => {
-    try {
-      const response = await axios.post('/login', {
-        login,
-        password,
-      });
-      setUser(response.data);
-      localStorage.setItem('token', response.data.token);
-    } catch (e) {
-      dispatchError('Invalid email or password');
-    }
+  const signIn = async (login: string) => {
+    localStorage.setItem('user', login);
+    setUser(login);
   };
 
   const signOut = () => {
     setUser(null);
-    localStorage.removeItem('token');
+    localStorage.removeItem('user');
   };
 
   return <AuthContext.Provider value={{ user, signIn, signOut }}>{children}</AuthContext.Provider>;
