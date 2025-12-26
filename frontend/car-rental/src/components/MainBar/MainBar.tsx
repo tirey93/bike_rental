@@ -4,11 +4,12 @@ import { StyledToolbar } from "./MainBar.styles";
 import LogoutIcon from '@mui/icons-material/Logout';
 
 export const MainBar = () => {
-  const { signOut } = useAuth();
+  const { user, signOut } = useAuth();
 
   return ( 
     <AppBar position="static">
       <StyledToolbar>
+        Hello {user}!
           <IconButton
           onClick={signOut}
           size="large"

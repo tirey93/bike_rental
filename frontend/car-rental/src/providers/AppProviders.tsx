@@ -1,18 +1,27 @@
-import { ThemeProvider } from "styled-components";
 import { PropsWithChildren } from "react";
-import { theme } from "../assets/theme";
 import { ErrorProvider } from "../hooks/useError.";
 import { AuthProvider } from "../hooks/useAuth";
+import { ThemeProvider, createTheme } from '@mui/material/styles'; // I tutaj!
+
 
 
 export const AppProviders = ({children}: PropsWithChildren) => {
-    return ( 
-        <ThemeProvider theme={theme}>
-          <ErrorProvider>
-            <AuthProvider>
-              {children}
-            </AuthProvider>
-          </ErrorProvider>
-        </ThemeProvider>
-    );
+  const customTheme = createTheme({
+    palette: {
+      primary: {
+        main: '#1976d2',
+        contrastText: 'white',
+      },
+    },
+  });
+
+  return (
+    <ThemeProvider theme={customTheme}>
+      <ErrorProvider>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
+      </ErrorProvider>
+    </ThemeProvider>
+  );
 };
