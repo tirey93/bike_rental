@@ -3,7 +3,7 @@ import { useAuth } from '../hooks/useAuth';
 import { Main } from './Main';
 
 function App() {
-  const {user, signIn, signOut} = useAuth();
+  const { user } = useAuth();
   return (
     <>
       {user ? <Main></Main> : <SignIn></SignIn>}
