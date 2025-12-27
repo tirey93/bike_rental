@@ -1,11 +1,8 @@
-import { MainBar } from "../MainBar/MainBar";
-import { styled } from '@mui/material/styles';
-import { drawerWidth } from "../../consts";
-import { Drawer } from "../Drawer/Drawer";
+import { MainBar } from "./MainBar/MainBar";
+import { Drawer } from "./Drawer/Drawer";
+import { ContentStyled } from "./Main.styles";
 
-const MainWrapper = styled('div')`
-  margin-left: ${drawerWidth}px;
-`;
+
 
 export const Main = () => {
 
@@ -13,9 +10,9 @@ export const Main = () => {
     <>
       <MainBar></MainBar>
       <Drawer></Drawer>      
-      <MainWrapper>
+      <ContentStyled>
         Main Page Content 
-      </MainWrapper>
+      </ContentStyled>
     </>
   );
 }

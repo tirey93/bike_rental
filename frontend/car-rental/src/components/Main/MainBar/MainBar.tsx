@@ -1,5 +1,5 @@
 import { AppBar, IconButton } from "@mui/material";
-import { useAuth } from "../../hooks/useAuth";
+import { useAuth } from "../../../hooks/useAuth";
 import { StyledToolbar } from "./MainBar.styles";
 import LogoutIcon from '@mui/icons-material/Logout';
 
