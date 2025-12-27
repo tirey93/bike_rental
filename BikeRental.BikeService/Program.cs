@@ -1,14 +1,14 @@
-using BikeRental.BikeService.Contracts.Events;
 using BikeRental.BikeService.Infrastructure;
 using BikeRental.StationService.Contracts.Events;
+using Microsoft.Extensions.DependencyInjection;
 using Rebus.Bus;
 using Rebus.Config;
-using Rebus.Routing.TypeBased;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 var fileName = builder.Configuration.GetConnectionString("WebApiDatabase");
 var rabbitHost = builder.Configuration["RabbitMQ:Hostname"] ?? "localhost";
+var allowedOrigin = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -17,8 +17,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(fileName);
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-
-
 
 builder.Services.AddRebus(configure => configure
     .Transport(t => t.UseRabbitMq(
@@ -30,8 +28,16 @@ builder.Services.AddRebus(configure => configure
 );
 
 builder.Services.AutoRegisterHandlersFromAssemblyOf<Program>();
+builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+{
+    builder.WithOrigins(allowedOrigin)
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+}));
 
 var app = builder.Build();
+app.UseCors("MyPolicy");
+
 
 app.Lifetime.ApplicationStarted.Register(async () =>
 {

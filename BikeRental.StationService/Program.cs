@@ -7,6 +7,7 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 var fileName = builder.Configuration.GetConnectionString("WebApiDatabase");
 var rabbitHost = builder.Configuration["RabbitMQ:Hostname"] ?? "localhost";
+var allowedOrigin = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
 
 // Add services to the container.
 
@@ -17,8 +18,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(fileName);
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
-
-
 builder.Services.AddRebus(configure => configure
     .Transport(t => t.UseRabbitMq(
         "amqp://" + rabbitHost, 
@@ -28,7 +27,16 @@ builder.Services.AddRebus(configure => configure
 
 builder.Services.AutoRegisterHandlersFromAssemblyOf<Program>();
 
+builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+{
+    builder.WithOrigins(allowedOrigin)
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+}));
+
 var app = builder.Build();
+
+app.UseCors("MyPolicy");
 
 app.Lifetime.ApplicationStarted.Register(async () =>
 {
