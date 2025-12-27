@@ -9,7 +9,7 @@ export const Main = () => {
   return ( 
     <>
       <MainBar></MainBar>
-      <Drawer></Drawer>      
+      <Drawer></Drawer>
       <ContentStyled>
         Main Page Content 
       </ContentStyled>

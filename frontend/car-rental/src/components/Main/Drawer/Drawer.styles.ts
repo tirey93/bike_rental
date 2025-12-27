@@ -7,8 +7,9 @@ export const DrawerHeaderWrapper = styled('div')(({ theme }) => ({
   alignItems: 'center',
   padding: theme.spacing(0, 1),
   ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
+  justifyContent: 'center',
   backgroundColor: theme.palette.primary.main,
+  color: theme.palette.primary.contrastText,
 }));
 
 export const DrawerStyled = styled(Drawer)(({ theme }) => ({
