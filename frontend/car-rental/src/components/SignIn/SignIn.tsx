@@ -1,5 +1,5 @@
 import { FormControl, InputLabel, Select, MenuItem, Button } from "@mui/material";
-import { FormWrapper, Wrapper } from "../../pages/App.styles";
+import { FormWrapper, Wrapper } from "../../pages/App/App.styles";
 import { useError } from "../../hooks/useError.";
 import { useAuth } from "../../hooks/useAuth";
 import { useState } from "react";

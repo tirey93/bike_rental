@@ -12,6 +12,9 @@ export const AppProviders = ({children}: PropsWithChildren) => {
         main: '#1976d2',
         contrastText: 'white',
       },
+      background: {
+        paper: '#f5f5f5',
+      },
     },
   });
 
