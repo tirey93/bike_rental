@@ -1,7 +1,7 @@
 import { FormControl, InputLabel, Select, MenuItem, Button } from "@mui/material";
 import { FormWrapper, Wrapper } from "../../pages/App/App.styles";
-import { useError } from "../../hooks/useError.";
-import { useAuth } from "../../hooks/useAuth";
+import { useError } from "../../contexts/ErrorContext.";
+import { useAuth } from "../../contexts/AuthContext";
 import { useState } from "react";
 
 type Props = {

@@ -1,5 +1,5 @@
 import { SignIn } from '../../components/SignIn/SignIn';
-import { useAuth } from '../../hooks/useAuth';
+import { useAuth } from '../../contexts/AuthContext';
 import { Main } from '../../components/Main/Main';
 
 function App() {

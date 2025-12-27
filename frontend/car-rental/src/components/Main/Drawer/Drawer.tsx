@@ -1,7 +1,8 @@
 import { Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { DrawerHeaderWrapper, DrawerStyled } from "./Drawer.styles";
 import PedalBikeIcon from '@mui/icons-material/PedalBike';
-import { useAuth } from "../../../hooks/useAuth";
+import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
+import { useAuth } from "../../../contexts/AuthContext";
 
 export const Drawer = () => {
   const { user } = useAuth();
@@ -24,6 +25,14 @@ export const Drawer = () => {
                   <PedalBikeIcon></PedalBikeIcon>
                 </ListItemIcon>
                 <ListItemText primary={'Bikes'} />
+              </ListItemButton>
+            </ListItem>
+            <ListItem key={'Stations'} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <LocalGasStationIcon></LocalGasStationIcon>
+                </ListItemIcon>
+                <ListItemText primary={'Stations'} />
               </ListItemButton>
             </ListItem>
         </List>

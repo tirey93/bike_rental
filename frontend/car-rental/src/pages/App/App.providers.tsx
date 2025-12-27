@@ -1,6 +1,6 @@
 import { PropsWithChildren } from "react";
-import { ErrorProvider } from "../hooks/useError.";
-import { AuthProvider } from "../hooks/useAuth";
+import { ErrorProvider } from "../../contexts/ErrorContext.";
+import { AuthProvider } from "../../contexts/AuthContext";
 import { ThemeProvider, createTheme } from '@mui/material/styles'; // I tutaj!
 
 
