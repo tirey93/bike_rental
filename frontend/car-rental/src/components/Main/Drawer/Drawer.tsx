@@ -11,35 +11,33 @@ export const Drawer = () => {
   const { change } = useContent();
   
   return ( 
-    <div>
-      <DrawerStyled 
-        variant="permanent" 
-        anchor="left"
-        sx={{
-          
-        }}
-        open={true}>
-        <DrawerHeaderWrapper>Hello {user}!</DrawerHeaderWrapper>
-        <Divider />
-        <List>
-          <ListItem key={ContentEnum.BIKES} disablePadding>
-              <ListItemButton onClick={() => change(ContentEnum.BIKES)}>
-                <ListItemIcon>
-                  <PedalBikeIcon></PedalBikeIcon>
-                </ListItemIcon>
-                <ListItemText primary={ContentEnum.BIKES} />
-              </ListItemButton>
-            </ListItem>
-            <ListItem key={ContentEnum.STATIONS} disablePadding>
-              <ListItemButton onClick={() => change(ContentEnum.STATIONS)}>
-                <ListItemIcon>
-                  <LocalGasStationIcon></LocalGasStationIcon>
-                </ListItemIcon>
-                <ListItemText primary={ContentEnum.STATIONS} />
-              </ListItemButton>
-            </ListItem>
-        </List>
-      </DrawerStyled>
-    </div>
+    <DrawerStyled 
+      variant="permanent" 
+      anchor="left"
+      sx={{
+        
+      }}
+      open={true}>
+      <DrawerHeaderWrapper>Hello {user}!</DrawerHeaderWrapper>
+      <Divider />
+      <List>
+        <ListItem key={ContentEnum.BIKES} disablePadding>
+            <ListItemButton onClick={() => change(ContentEnum.BIKES)}>
+              <ListItemIcon>
+                <PedalBikeIcon></PedalBikeIcon>
+              </ListItemIcon>
+              <ListItemText primary={ContentEnum.BIKES} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem key={ContentEnum.STATIONS} disablePadding>
+            <ListItemButton onClick={() => change(ContentEnum.STATIONS)}>
+              <ListItemIcon>
+                <LocalGasStationIcon></LocalGasStationIcon>
+              </ListItemIcon>
+              <ListItemText primary={ContentEnum.STATIONS} />
+            </ListItemButton>
+          </ListItem>
+      </List>
+    </DrawerStyled>
   );
 }
