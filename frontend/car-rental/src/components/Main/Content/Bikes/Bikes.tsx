@@ -1,7 +1,9 @@
-import { useBikesList } from "./hooks/useBikesList";
+import { bikeApiUrl } from "../../../../consts";
+import { useFetch } from "../../../../hooks/useFetch";
+import { Bike } from "./dtos/Bike";
 
 export const Bikes = () => {
-  const { bikes, loading, error } = useBikesList();
+  const { data, loading, error } = useFetch<Bike[]>(bikeApiUrl);
 
   return ( 
     <div>
