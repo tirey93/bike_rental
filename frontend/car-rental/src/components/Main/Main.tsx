@@ -8,8 +8,8 @@ import { Content } from "./Content/Content";
 export const Main = () => {
   return ( 
     <>
-      <MainBar></MainBar>
       <ContentProvider>
+        <MainBar></MainBar>
         <Drawer></Drawer>
         <Content></Content>
       </ContentProvider> 

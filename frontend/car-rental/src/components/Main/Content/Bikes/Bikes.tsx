@@ -1,8 +1,10 @@
-import {  Paper, Table, TableHead, TableRow, TableCell, TableBody } from "@mui/material";
+import {  Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from "@mui/material";
 import { bikeApiUrl } from "../../../../consts";
 import { useFetch } from "../../../../hooks/useFetch";
 import { Bike } from "./dtos/Bike";
 import { ContainerStyled } from "./Bikes.styles";
+import UpdateIcon from '@mui/icons-material/Update';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 export const Bikes = () => {
   const { data, loading, error } = useFetch<Bike[]>(bikeApiUrl);
@@ -19,6 +21,7 @@ export const Bikes = () => {
               <TableCell align="right">Model</TableCell>
               <TableCell align="right">Color</TableCell>
               <TableCell align="right">Last Service Date</TableCell>
+              <TableCell align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -31,7 +34,15 @@ export const Bikes = () => {
                 </TableCell>
                 <TableCell align="right">{row.model}</TableCell>
                 <TableCell align="right">{row.color}</TableCell>
-                <TableCell align="right">{row.lastServiceDate.toLocaleString()}</TableCell>
+                <TableCell align="right">{new Date(row.lastServiceDate).toLocaleString()}</TableCell>
+                <TableCell align="center">
+                  <IconButton aria-label="delete">
+                    <DeleteIcon />
+                  </IconButton>
+                  <IconButton aria-label="update">
+                    <UpdateIcon />
+                  </IconButton>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

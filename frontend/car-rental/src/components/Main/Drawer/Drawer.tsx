@@ -1,41 +1,51 @@
-import { Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
-import { DrawerHeaderWrapper, DrawerStyled } from "./Drawer.styles";
+import { Divider, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Tooltip } from "@mui/material";
+import { DrawerHeaderWrapper, DrawerStyled, ListItemButtonStyled } from "./Drawer.styles";
 import PedalBikeIcon from '@mui/icons-material/PedalBike';
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
 import { useAuth } from "../../../contexts/AuthContext";
 import { useContent } from "../contexts/ContentContext";
 import { ContentEnum } from "../contexts/enums/content.enum";
+import LogoutIcon from '@mui/icons-material/Logout';
 
 export const Drawer = () => {
-  const { user } = useAuth();
-  const { change } = useContent();
+  const { user, signOut } = useAuth();
+  const { current, change } = useContent();
   
   return ( 
     <DrawerStyled 
       variant="permanent" 
       anchor="left"
-      sx={{
-        
-      }}
       open={true}>
-      <DrawerHeaderWrapper>Hello {user}!</DrawerHeaderWrapper>
+      <DrawerHeaderWrapper>
+        <Tooltip title="Sign Out">
+          <IconButton
+            onClick={signOut}
+            size="large"
+            color="inherit"
+            aria-label="open drawer"
+            sx={{ mr: 2 }}>
+            <LogoutIcon />
+          </IconButton>
+        </Tooltip>
+        Hello {user}!
+      </DrawerHeaderWrapper>
       <Divider />
       <List>
         <ListItem key={ContentEnum.BIKES} disablePadding>
-            <ListItemButton onClick={() => change(ContentEnum.BIKES)}>
+            <ListItemButtonStyled onClick={() => change(ContentEnum.BIKES)} selected={current === ContentEnum.BIKES}>
               <ListItemIcon>
                 <PedalBikeIcon></PedalBikeIcon>
               </ListItemIcon>
               <ListItemText primary={ContentEnum.BIKES} />
-            </ListItemButton>
+            </ListItemButtonStyled>
           </ListItem>
           <ListItem key={ContentEnum.STATIONS} disablePadding>
-            <ListItemButton onClick={() => change(ContentEnum.STATIONS)}>
+            <ListItemButtonStyled onClick={() => change(ContentEnum.STATIONS)} selected={current === ContentEnum.STATIONS}>
               <ListItemIcon>
                 <LocalGasStationIcon></LocalGasStationIcon>
               </ListItemIcon>
               <ListItemText primary={ContentEnum.STATIONS} />
-            </ListItemButton>
+            </ListItemButtonStyled>
           </ListItem>
       </List>
     </DrawerStyled>
