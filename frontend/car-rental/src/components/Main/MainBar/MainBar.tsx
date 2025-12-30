@@ -6,6 +6,7 @@ import { ContentEnum } from "../Content/content.enum";
 import { DrawerComponent, useActionDrawer } from "../ActionDrawer/ActionDrawerContext";
 import { UpsertBike } from "../Content/Bikes/UpsertBike/UpsertBike";
 import { UpsertStation } from "../Content/Stations/UpsertStation/UpsertStation";
+import { on } from "events";
 
 export const MainBar = () => {
   const { content } = useContent();
@@ -38,7 +39,7 @@ export const MainBar = () => {
       <StyledToolbar>
         <Tooltip title={`Add new ${getDescription()}`}>
           <IconButton
-            onClick={() => openWith(getComponent())}
+            onClick={() => openWith({component: getComponent(), props: {edit: false}, onSuccess: () => { console.log('Drawer closed');}})}
             size="large"
             edge="end"
             color="inherit"
