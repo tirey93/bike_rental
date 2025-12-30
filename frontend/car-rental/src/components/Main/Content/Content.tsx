@@ -1,4 +1,4 @@
-import { useContent } from "../contexts/ContentContext";
+import { useContent } from "./ContentContext";
 import { Bikes } from "./Bikes/Bikes";
 import { ContentStyled } from "./Content.styles";
 import { Stations } from "./Stations/Stations";

@@ -1,10 +1,10 @@
 
 import React, { PropsWithChildren, useContext, useEffect, useState } from 'react';
-import { ContentEnum } from './enums/content.enum';
+import { ContentEnum } from './content.enum';
 
 const ContentContext = React.createContext({} as ContentContextType);
 
-export interface ContentContextType {
+interface ContentContextType {
   current: ContentEnum;
   change: (content: ContentEnum) => void;
 }

@@ -3,8 +3,8 @@ import { DrawerHeaderWrapper, DrawerStyled, ListItemButtonStyled } from "./Drawe
 import PedalBikeIcon from '@mui/icons-material/PedalBike';
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
 import { useAuth } from "../../../contexts/AuthContext";
-import { useContent } from "../contexts/ContentContext";
-import { ContentEnum } from "../contexts/enums/content.enum";
+import { useContent } from "../Content/ContentContext";
+import { ContentEnum } from "../Content/content.enum";
 import LogoutIcon from '@mui/icons-material/Logout';
 
 export const Drawer = () => {
@@ -22,8 +22,7 @@ export const Drawer = () => {
             onClick={signOut}
             size="large"
             color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}>
+            aria-label="open drawer">
             <LogoutIcon />
           </IconButton>
         </Tooltip>

@@ -2,7 +2,6 @@ import React, { PropsWithChildren, useContext, useEffect, useState } from 'react
 
 const AuthContext = React.createContext({} as AuthContextType);
 
-
 export interface AuthContextType {
   user: string | null;
   signIn: (login: string) => void;
