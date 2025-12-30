@@ -4,12 +4,12 @@ import { ContentStyled } from "./Content.styles";
 import { Stations } from "./Stations/Stations";
 
 export const Content = () => {
-  const { current } = useContent();
+  const { content } = useContent();
   
   return ( 
     <ContentStyled>
-      {current === 'Bikes' && <Bikes></Bikes>}
-      {current === 'Stations' && <Stations></Stations>}
+      {content === 'Bikes' && <Bikes></Bikes>}
+      {content === 'Stations' && <Stations></Stations>}
     </ContentStyled>
   );
 }

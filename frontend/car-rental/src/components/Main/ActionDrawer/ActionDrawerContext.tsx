@@ -1,17 +1,21 @@
 import React, { PropsWithChildren, useContext, useState } from "react";
+import { ActionDrawerMode } from "./enums/ActionDrawerMode";
 
 const ActionDrawerContext = React.createContext({} as ActionDrawerContextType);
 
 export interface ActionDrawerContextType {
   open: boolean;
-  openActionDrawer: () => void;
+  mode: ActionDrawerMode;
+  openActionDrawer: (mode: ActionDrawerMode) => void;
   closeActionDrawer: () => void;
 }
 
 export const ActionDrawerProvider = ({ children }: PropsWithChildren) => {
   const [open, setOpen] = useState<boolean>(false);
+  const [mode, setMode] = useState<ActionDrawerMode>(ActionDrawerMode.NONE);
 
-  const openActionDrawer = () => {
+  const openActionDrawer = (mode: ActionDrawerMode) => {
+    setMode(mode);
     setOpen(true);
   }
 
@@ -19,15 +23,15 @@ export const ActionDrawerProvider = ({ children }: PropsWithChildren) => {
     setOpen(false);
   }
 
-  return <ActionDrawerContext.Provider value={{ open, openActionDrawer, closeActionDrawer }}>{children}</ActionDrawerContext.Provider>;
+  return <ActionDrawerContext.Provider value={{ open, mode, openActionDrawer, closeActionDrawer }}>{children}</ActionDrawerContext.Provider>;
 };
 
 export const useActionDrawer = () => {
-  const auth = useContext(ActionDrawerContext);
+  const context = useContext(ActionDrawerContext);
 
-  if (!auth) {
+  if (!context) {
     throw Error('useActionDrawer needs to be used inside ActionDrawerContext');
   }
 
-  return auth;
+  return context;
 };

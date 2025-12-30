@@ -9,7 +9,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 export const Drawer = () => {
   const { user, signOut } = useAuth();
-  const { current, change } = useContent();
+  const { content, change } = useContent();
   
   return ( 
     <DrawerStyled 
@@ -31,7 +31,7 @@ export const Drawer = () => {
       <Divider />
       <List>
         <ListItem key={ContentEnum.BIKES} disablePadding>
-            <ListItemButtonStyled onClick={() => change(ContentEnum.BIKES)} selected={current === ContentEnum.BIKES}>
+            <ListItemButtonStyled onClick={() => change(ContentEnum.BIKES)} selected={content === ContentEnum.BIKES}>
               <ListItemIcon>
                 <PedalBikeIcon></PedalBikeIcon>
               </ListItemIcon>
@@ -39,7 +39,7 @@ export const Drawer = () => {
             </ListItemButtonStyled>
           </ListItem>
           <ListItem key={ContentEnum.STATIONS} disablePadding>
-            <ListItemButtonStyled onClick={() => change(ContentEnum.STATIONS)} selected={current === ContentEnum.STATIONS}>
+            <ListItemButtonStyled onClick={() => change(ContentEnum.STATIONS)} selected={content === ContentEnum.STATIONS}>
               <ListItemIcon>
                 <LocalGasStationIcon></LocalGasStationIcon>
               </ListItemIcon>

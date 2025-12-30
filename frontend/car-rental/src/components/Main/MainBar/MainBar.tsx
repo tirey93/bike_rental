@@ -4,13 +4,14 @@ import AddIcon from '@mui/icons-material/Add';
 import { useContent } from "../Content/ContentContext";
 import { ContentEnum } from "../Content/content.enum";
 import { useActionDrawer } from "../ActionDrawer/ActionDrawerContext";
+import { ActionDrawerMode } from "../ActionDrawer/enums/ActionDrawerMode";
 
 export const MainBar = () => {
-  const { current } = useContent();
+  const { content } = useContent();
   const { openActionDrawer } = useActionDrawer();
 
   const getContentType = () => {
-    switch (current) {
+    switch (content) {
       case ContentEnum.BIKES:
         return 'bike';
       case ContentEnum.STATIONS:
@@ -25,7 +26,7 @@ export const MainBar = () => {
       <StyledToolbar>
         <Tooltip title={`Add new ${getContentType()}`}>
           <IconButton
-            onClick={openActionDrawer}
+            onClick={() => openActionDrawer(ActionDrawerMode.EDITING)}
             size="large"
             edge="end"
             color="inherit"

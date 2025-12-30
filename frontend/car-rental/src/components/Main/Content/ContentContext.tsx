@@ -5,18 +5,18 @@ import { ContentEnum } from './content.enum';
 const ContentContext = React.createContext({} as ContentContextType);
 
 interface ContentContextType {
-  current: ContentEnum;
+  content: ContentEnum;
   change: (content: ContentEnum) => void;
 }
 
 export const ContentProvider = ({ children }: PropsWithChildren) => {
-  const [current, setCurrent] = useState<ContentEnum>(ContentEnum.BIKES);
+  const [content, setContent] = useState<ContentEnum>(ContentEnum.BIKES);
 
   const change = (content: ContentEnum) => {
-    setCurrent(content);
+    setContent(content);
   };
 
-  return <ContentContext.Provider value={{ current, change }}>{children}</ContentContext.Provider>;
+  return <ContentContext.Provider value={{ content: content, change }}>{children}</ContentContext.Provider>;
 };
 
 export const useContent = () => {
