@@ -3,14 +3,15 @@ import { StyledToolbar } from "./MainBar.styles";
 import AddIcon from '@mui/icons-material/Add';
 import { useContent } from "../Content/ContentContext";
 import { ContentEnum } from "../Content/content.enum";
-import { useActionDrawer } from "../ActionDrawer/ActionDrawerContext";
-import { ActionDrawerMode } from "../ActionDrawer/enums/ActionDrawerMode";
+import { DrawerComponent, useActionDrawer } from "../ActionDrawer/ActionDrawerContext";
+import { UpsertBike } from "../Content/Bikes/UpsertBike/UpsertBike";
+import { UpsertStation } from "../Content/Stations/UpsertStation/UpsertStation";
 
 export const MainBar = () => {
   const { content } = useContent();
-  const { openActionDrawer } = useActionDrawer();
+  const { openWith } = useActionDrawer();
 
-  const getContentType = () => {
+  const getDescription = () => {
     switch (content) {
       case ContentEnum.BIKES:
         return 'bike';
@@ -21,12 +22,23 @@ export const MainBar = () => {
     }
   };
 
+  const getComponent = (): DrawerComponent => {
+    switch (content) {
+      case ContentEnum.BIKES:
+        return UpsertBike;
+      case ContentEnum.STATIONS:
+        return UpsertStation;
+      default:
+        throw Error('No component found for content ' + content);
+    }
+  }
+
   return ( 
     <AppBar position="static">
       <StyledToolbar>
-        <Tooltip title={`Add new ${getContentType()}`}>
+        <Tooltip title={`Add new ${getDescription()}`}>
           <IconButton
-            onClick={() => openActionDrawer(ActionDrawerMode.EDITING)}
+            onClick={() => openWith(getComponent())}
             size="large"
             edge="end"
             color="inherit"

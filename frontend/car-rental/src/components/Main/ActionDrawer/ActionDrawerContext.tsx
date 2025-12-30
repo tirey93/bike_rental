@@ -1,21 +1,21 @@
-import React, { PropsWithChildren, useContext, useState } from "react";
-import { ActionDrawerMode } from "./enums/ActionDrawerMode";
+import React, { PropsWithChildren, ReactElement, useContext, useState } from "react";
 
 const ActionDrawerContext = React.createContext({} as ActionDrawerContextType);
+export type DrawerComponent<P = any> = React.ComponentType<P>;
 
 export interface ActionDrawerContextType {
   open: boolean;
-  mode: ActionDrawerMode;
-  openActionDrawer: (mode: ActionDrawerMode) => void;
+  node: ReactElement;
+  openWith<P>(Comp: DrawerComponent<P>, props?: P): void;
   closeActionDrawer: () => void;
 }
 
 export const ActionDrawerProvider = ({ children }: PropsWithChildren) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [mode, setMode] = useState<ActionDrawerMode>(ActionDrawerMode.NONE);
+  const [node, setNode] = useState<ReactElement>(<></>);
 
-  const openActionDrawer = (mode: ActionDrawerMode) => {
-    setMode(mode);
+  const openWith = (Comp: DrawerComponent, props: any = null) => {
+    setNode(<Comp {...props} />);
     setOpen(true);
   }
 
@@ -23,7 +23,7 @@ export const ActionDrawerProvider = ({ children }: PropsWithChildren) => {
     setOpen(false);
   }
 
-  return <ActionDrawerContext.Provider value={{ open, mode, openActionDrawer, closeActionDrawer }}>{children}</ActionDrawerContext.Provider>;
+  return <ActionDrawerContext.Provider value={{ open, node, openWith, closeActionDrawer }}>{children}</ActionDrawerContext.Provider>;
 };
 
 export const useActionDrawer = () => {
