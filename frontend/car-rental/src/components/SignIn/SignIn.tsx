@@ -13,7 +13,6 @@ export const SignIn = ({}: Props) => {
    const [selectedUser, setSelectedUser] = useState<string>('');
 
    const onChange = (value: string) => {
-      console.log(value); 
       setSelectedUser(value);
    }
 

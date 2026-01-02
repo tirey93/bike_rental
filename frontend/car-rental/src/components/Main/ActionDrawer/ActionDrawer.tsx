@@ -4,7 +4,7 @@ import { ActionDrawerStyled } from "./ActionDrawer.styles";
 import { useActionDrawer } from "./ActionDrawerContext";
 
 export const ActionDrawer = () => {
-  const {open, node, closeActionDrawer} = useActionDrawer();
+  const {open, node, name, closeActionDrawer} = useActionDrawer();
   return ( 
     <ActionDrawerStyled 
       variant="temporary" 
@@ -12,6 +12,7 @@ export const ActionDrawer = () => {
       onClose={closeActionDrawer}
       open={open}>
       <DrawerHeaderWrapper>
+        {name}
       </DrawerHeaderWrapper>
       <Divider />
       {node}

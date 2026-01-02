@@ -5,6 +5,7 @@ const ActionDrawerContext = React.createContext({} as ActionDrawerContextType);
 export type DrawerComponent<P = any> = React.ComponentType<P>;
 
 interface OpenWithOptions<P> {
+  name: string;
   component: DrawerComponent<P>;
   props?: P;
   onSuccess?: () => void;
@@ -12,6 +13,7 @@ interface OpenWithOptions<P> {
 export interface ActionDrawerContextType {
   open: boolean;
   node: ReactElement;
+  name: string;
   openWith<P>(options: OpenWithOptions<P>): void;
   publishSuccess: () => void;
   closeActionDrawer: () => void;
@@ -19,10 +21,12 @@ export interface ActionDrawerContextType {
 
 export const ActionDrawerProvider = ({ children }: PropsWithChildren) => {
   const [open, setOpen] = useState<boolean>(false);
+  const [name, setName] = useState<string>('');
   const [node, setNode] = useState<ReactElement>(<></>);
   const [onSuccess, setOnSuccess] = useState<(() => void) | null>(null);
 
   const openWith = (options: OpenWithOptions<any>) => {
+    setName(options.name);
     setNode(<options.component {...options.props} />);
     setOnSuccess(() => options.onSuccess || null);
     setOpen(true);
@@ -37,7 +41,7 @@ export const ActionDrawerProvider = ({ children }: PropsWithChildren) => {
     onSuccess && onSuccess();
   }
 
-  return <ActionDrawerContext.Provider value={{ open, node, openWith, closeActionDrawer, publishSuccess }}>{children}</ActionDrawerContext.Provider>;
+  return <ActionDrawerContext.Provider value={{ open, node, name, openWith, closeActionDrawer, publishSuccess }}>{children}</ActionDrawerContext.Provider>;
 };
 
 export const useActionDrawer = () => {
