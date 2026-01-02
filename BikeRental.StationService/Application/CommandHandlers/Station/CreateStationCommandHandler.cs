@@ -2,7 +2,7 @@
 using BikeRental.StationService.Domain.Repositories;
 using MediatR;
 
-namespace BikeRental.StationService.Application.CommandHandlers
+namespace BikeRental.StationService.Application.CommandHandlers.Station
 {
     public class CreateStationCommand : IRequest
     {
