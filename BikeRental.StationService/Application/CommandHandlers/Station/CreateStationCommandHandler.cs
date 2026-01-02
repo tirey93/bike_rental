@@ -1,5 +1,4 @@
-﻿using BikeRental.StationService.Domain.Entities;
-using BikeRental.StationService.Domain.Repositories;
+﻿using BikeRental.StationService.Domain.Repositories;
 using MediatR;
 
 namespace BikeRental.StationService.Application.CommandHandlers.Station
@@ -24,7 +23,7 @@ namespace BikeRental.StationService.Application.CommandHandlers.Station
 
         public async Task Handle(CreateStationCommand request, CancellationToken cancellationToken)
         {
-            await _stationRepository.AddStation(new Station
+            await _stationRepository.AddStation(new Domain.Entities.Station
             {
                 Code = request.Code,
                 Location = request.Location,

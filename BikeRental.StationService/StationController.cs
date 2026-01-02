@@ -3,6 +3,11 @@ using BikeRental.StationService.Application.CommandHandlers.Station;
 using BikeRental.StationService.Application.QueryHandlers;
 using BikeRental.StationService.Responses;
 using MediatR;
+using BikeRental.StationService.Application.CommandHandlers.BikeToStation;
+using BikeRental.StationService.Application.CommandHandlers.Station;
+using BikeRental.StationService.Application.QueryHandlers;
+using BikeRental.StationService.Responses;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeRental.StationService
@@ -23,6 +28,34 @@ namespace BikeRental.StationService
 
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] CreateStationCommand command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+        }
+
+        [HttpPut]
+        public async Task<ActionResult> Update([FromBody] UpdateStationCommand command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> Delete(DeleteStationCommand command)
         {
             try
             {
