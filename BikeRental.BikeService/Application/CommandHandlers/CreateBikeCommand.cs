@@ -34,11 +34,12 @@ namespace BikeRental.BikeService.Application.CommandHandlers
             };
             await _bikeRepository.AddBike(bike);
 
+            await _bikeRepository.SaveChangesAsync();
+
             await _bus.Publish(new BikeCreatedEvent
             {
                 ExternalBikeId = bike.ExternalId,
             });
-            await _bikeRepository.SaveChangesAsync();
         }
     }
 }

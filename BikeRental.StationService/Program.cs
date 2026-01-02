@@ -44,6 +44,7 @@ app.Lifetime.ApplicationStarted.Register(async () =>
     var bus = scope.ServiceProvider.GetRequiredService<IBus>();
 
     await bus.Subscribe<BikeCreatedEvent>();
+    await bus.Subscribe<BikeDeletedEvent>();
 });
 
 if (app.Environment.IsDevelopment())

@@ -33,6 +33,34 @@ namespace BikeRental.BikeService
             }
         }
 
+        [HttpPut]
+        public async Task<ActionResult> Update([FromBody] UpdateBikeCommand command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> Delete([FromQuery] DeleteBikeCommand command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+        }
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BikeResponse>>> GetAll()
         {
