@@ -11,6 +11,10 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Dayjs } from "dayjs";
 import SaveIcon from '@mui/icons-material/Save';
 import { SaveButtonWrapper } from "../../../ActionDrawer/styles/SaveButtonWrapper";
+import { useSave } from "../../../../../hooks/useSave";
+import { bikeApiUrl } from "../../../../../consts";
+import { Bike } from "../dtos/Bike";
+import { formatDateOnly, SaveBike } from "../dtos/SaveBike";
 
 type Props = {
  edit: boolean
@@ -21,10 +25,18 @@ export const UpsertBike = ({edit}: Props) => {
   const [selectedModel, setSelectedModel] = useState<string>('');
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [date, setDate] = useState<Dayjs | null>(null);
+  const { save } = useSave<SaveBike>(bikeApiUrl);
 
   const handleUpsert = () => {
-    console.log('Bike saved:', {model: selectedModel, color: selectedColor, lastServiceDate: date});
-    publishSuccess();
+    if (edit) {
+      // Update logic here
+    } else {
+      save({
+          model: selectedModel, 
+          color: selectedColor, 
+          lastServiceDate: formatDateOnly(date?.toDate())
+        }, publishSuccess);
+    }
   }
   return ( 
     <div>
@@ -37,7 +49,7 @@ export const UpsertBike = ({edit}: Props) => {
             label="Model"
             onChange={(e) => setSelectedModel(e.target.value)}>
             {BikeModels.map((model) => (
-              <MenuItem key={model.id} value={model.id}>
+              <MenuItem key={model.id} value={model.name}>
                 {model.name}
               </MenuItem>
             ))}
@@ -51,7 +63,7 @@ export const UpsertBike = ({edit}: Props) => {
             label="Color"
             onChange={(e) => setSelectedColor(e.target.value)}>
             {BikeColors.map((color) => (
-              <MenuItem key={color.id} value={color.id}>
+              <MenuItem key={color.id} value={color.name}>
                 {color.name}
               </MenuItem>
             ))}

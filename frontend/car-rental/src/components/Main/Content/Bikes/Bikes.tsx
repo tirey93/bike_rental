@@ -34,7 +34,7 @@ export const Bikes = () => {
                 </TableCell>
                 <TableCell align="right">{row.model}</TableCell>
                 <TableCell align="right">{row.color}</TableCell>
-                <TableCell align="right">{new Date(row.lastServiceDate).toLocaleString()}</TableCell>
+                <TableCell align="right">{new Date(row.lastServiceDate).toDateString()}</TableCell>
                 <TableCell align="center">
                   <IconButton aria-label="delete">
                     <DeleteIcon />
