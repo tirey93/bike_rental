@@ -1,10 +1,16 @@
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { Button, InputLabel, MenuItem, Select } from "@mui/material";
 import { useActionDrawer } from "../../../ActionDrawer/ActionDrawerContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Wrapper } from "../../../../../pages/App/App.styles";
 import { FormControlStyled } from "../../../ActionDrawer/styles/FormControlStyled";
 import { BikeModels } from "../../../../../assets/BikeModels";
 import { BikeColors } from "../../../../../assets/BikeColors";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { Dayjs } from "dayjs";
+import SaveIcon from '@mui/icons-material/Save';
+import { SaveButtonWrapper } from "../../../ActionDrawer/styles/SaveButtonWrapper";
 
 type Props = {
  edit: boolean
@@ -14,7 +20,12 @@ export const UpsertBike = ({edit}: Props) => {
   const { publishSuccess } = useActionDrawer();
   const [selectedModel, setSelectedModel] = useState<string>('');
   const [selectedColor, setSelectedColor] = useState<string>('');
+  const [date, setDate] = useState<Dayjs | null>(null);
 
+  const handleUpsert = () => {
+    console.log('Bike saved:', {model: selectedModel, color: selectedColor, lastServiceDate: date});
+    publishSuccess();
+  }
   return ( 
     <div>
       <Wrapper>
@@ -46,8 +57,20 @@ export const UpsertBike = ({edit}: Props) => {
             ))}
           </Select>
         </FormControlStyled>
-        <DatePicker label="Basic date picker" />
-      {/* <button onClick={publishSuccess}>Submit</button> */}
+        <FormControlStyled>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              label="Last service date"
+              value={date}
+              onChange={(newValue) => setDate(newValue)}/>
+          </LocalizationProvider>
+        </FormControlStyled>
+        <SaveButtonWrapper>
+            <Button
+              disabled={selectedModel === '' || selectedColor === '' || date === null}
+              onClick={() => handleUpsert()}
+              variant="contained" startIcon={<SaveIcon />}>{edit ? 'Update' : 'Save'}</Button>
+        </SaveButtonWrapper>
       </Wrapper>
     </div>
   );
