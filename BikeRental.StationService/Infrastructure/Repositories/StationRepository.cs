@@ -19,7 +19,7 @@ namespace BikeRental.StationService.Infrastructure.Repositories
 
         public IEnumerable<Station> Get()
         {
-            return _dbSet;
+            return _dbSet.Include(x => x.BikesAtStation);
         }
 
         public Station Get(int id)

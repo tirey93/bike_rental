@@ -106,5 +106,18 @@ namespace BikeRental.StationService
                 return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
             }
         }
+
+        [HttpGet("{stationId}/bikes")]
+        public async Task<ActionResult<IEnumerable<Guid>>> GetBikes(int stationId)
+        {
+            try
+            {
+                return Ok(await _mediator.Send(new GetBikesAtStationQuery { StationId = stationId }));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+        }
     }
 }

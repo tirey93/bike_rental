@@ -5,4 +5,5 @@ export interface Station {
   code: string;
   location: string;
   capacity: number;
+  availableBikes: number;
 }

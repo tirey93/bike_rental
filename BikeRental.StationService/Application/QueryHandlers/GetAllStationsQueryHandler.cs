@@ -19,14 +19,15 @@ namespace BikeRental.StationService.Application.QueryHandlers
 
         public Task<IEnumerable<StationResponse>> Handle(GetAllStationsQuery request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(_stationRepository.Get().Select(bike =>
+            return Task.FromResult(_stationRepository.Get().Select(station =>
                 new StationResponse
                 {
-                    Id = bike.Id,
-                    ExternalId = bike.ExternalId,
-                    Code = bike.Code,
-                    Capacity = bike.Capacity,
-                    Location = bike.Location
+                    Id = station.Id,
+                    ExternalId = station.ExternalId,
+                    Code = station.Code,
+                    Capacity = station.Capacity,
+                    Location = station.Location,
+                    AvailableBikes = station.BikesAtStation.Count
                 }));
         }
     }

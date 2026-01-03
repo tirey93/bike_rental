@@ -41,7 +41,7 @@ export const Stations = () => {
                 </TableCell>
                 <TableCell align="right">{row.code}</TableCell>
                 <TableCell align="right">{row.location}</TableCell>
-                <TableCell align="right">{row.capacity}</TableCell>
+                <TableCell align="right">{row.availableBikes}/{row.capacity}</TableCell>
                 <TableCell align="center">
                   <IconButton
                     onClick={ () => openWith({
