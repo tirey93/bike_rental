@@ -10,7 +10,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
 import SaveIcon from '@mui/icons-material/Save';
-import { SaveButtonWrapper } from "../../../ActionDrawer/styles/SaveButtonWrapper";
+import { ConfirmationButtonWrapper } from "../../../ActionDrawer/styles/ConfirmationButtonWrapper";
 import { bikeApiUrl } from "../../../../../consts";
 import { Bike } from "../dtos/Bike";
 import { formatDateOnly, SaveBike } from "../dtos/SaveBike";
@@ -82,12 +82,12 @@ export const UpsertBike = ({bike}: Props) => {
             onChange={(newValue) => setDate(newValue)}/>
         </LocalizationProvider>
       </FormControlStyled>
-      <SaveButtonWrapper>
+      <ConfirmationButtonWrapper>
           <Button
             disabled={selectedModel === '' || selectedColor === '' || date === null}
             onClick={() => handleUpsert()}
             variant="contained" startIcon={<SaveIcon />}>{bike ? 'Update' : 'Save'}</Button>
-      </SaveButtonWrapper>
+      </ConfirmationButtonWrapper>
     </Wrapper>
   );
 }

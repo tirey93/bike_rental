@@ -9,6 +9,7 @@ import { useRefresh } from "../../../../contexts/RefreshContext";
 import { ContentEnum } from "../content.enum";
 import { useActionDrawer } from "../../ActionDrawer/ActionDrawerContext";
 import { UpsertBike } from "./UpsertBike/UpsertBike";
+import { DeleteBike } from "./DeleteBike/DeleteBike";
 
 export const Bikes = () => {
   const { refreshKeys, triggerRefresh } = useRefresh();
@@ -42,11 +43,22 @@ export const Bikes = () => {
                 <TableCell align="right">{row.color}</TableCell>
                 <TableCell align="right">{new Date(row.lastServiceDate).toDateString()}</TableCell>
                 <TableCell align="center">
-                  <IconButton>
+                  <IconButton
+                    onClick={ () => openWith({
+                      component: DeleteBike, 
+                      name: 'Delete bike', 
+                      props: {bike: row}, 
+                      onSuccess: () => triggerRefresh(ContentEnum.BIKES) 
+                    })}>
                     <DeleteIcon />
                   </IconButton>
                   <IconButton 
-                    onClick={ () => openWith({component: UpsertBike, name: 'Update bike', props: {bike: row}, onSuccess: () => triggerRefresh(ContentEnum.BIKES) })}>
+                    onClick={ () => openWith({
+                      component: UpsertBike, 
+                      name: 'Update bike', 
+                      props: {bike: row}, 
+                      onSuccess: () => triggerRefresh(ContentEnum.BIKES) 
+                    })}>
                     <UpdateIcon />
                   </IconButton>
                 </TableCell>
