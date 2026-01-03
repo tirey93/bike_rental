@@ -10,6 +10,8 @@ namespace BikeRental.StationService.Domain.Entities
 
         public Bike Bike { get; private set; }
 
+        public int BikeId { get; private set; }
+
         public BikeAtStation() { }
 
         public BikeAtStation(Station station, Bike bike)
@@ -17,6 +19,7 @@ namespace BikeRental.StationService.Domain.Entities
             Station = station;
             StationId = station.Id;
             Bike = bike;
+            BikeId = bike.Id;
         }
     }
 }

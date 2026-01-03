@@ -24,13 +24,10 @@ Content-Type: application/json
 }
 
 ###
-DELETE {{BikeService_HostAddress}}/bike/
+DELETE {{BikeService_HostAddress}}/bike/7
 Accept: application/json
 Content-Type: application/json
 
-{
-  "id": "1"
-}
 
 ###
 POST {{StationService_HostAddress}}/station/
@@ -38,8 +35,16 @@ Accept: application/json
 Content-Type: application/json
 
 {
-  "code": "ST1234",
-  "location": "Lodz",
-  "capacity": 25
+  "code": "ST1236",
+  "location": "Warszawa",
+  "capacity": 26
 }
 
+###
+POST {{StationService_HostAddress}}/station/5/bike
+Accept: application/json
+Content-Type: application/json
+
+{
+  "externalBikeId": "4ce4981c-8595-44a0-b52e-212f00ff2145"
+}

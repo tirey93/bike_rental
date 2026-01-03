@@ -15,7 +15,7 @@ namespace BikeRental.StationService.Domain.Entities
 
         public void AddBike(Bike bike)
         {
-            if (BikesAtStation.Any(x => x.Bike.Id == bike.Id)) 
+            if (BikesAtStation.Any(x => x.BikeId == bike.Id)) 
             {
                 throw new BikeAlreadyAtStationException(bike.ExternalId, this);
             }
@@ -25,7 +25,7 @@ namespace BikeRental.StationService.Domain.Entities
 
         public void RemoveBike(Bike bike)
         {
-            var bikeAtStation = BikesAtStation.FirstOrDefault(x => x.Bike.Id == bike.Id);
+            var bikeAtStation = BikesAtStation.FirstOrDefault(x => x.BikeId == bike.Id);
             if (bikeAtStation == null)
             {
                 throw new BikeNotExistsAtStationException(bike.ExternalId, this);
