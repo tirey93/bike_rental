@@ -11,11 +11,11 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs, { Dayjs } from "dayjs";
 import SaveIcon from '@mui/icons-material/Save';
 import { SaveButtonWrapper } from "../../../ActionDrawer/styles/SaveButtonWrapper";
-import { useSave } from "../../../../../hooks/useSave";
 import { bikeApiUrl } from "../../../../../consts";
 import { Bike } from "../dtos/Bike";
 import { formatDateOnly, SaveBike } from "../dtos/SaveBike";
 import { useUpdate } from "../../../../../hooks/useUpdate";
+import { useCreate } from "../../../../../hooks/useCreate";
 
 type Props = {
   bike?: Bike;
@@ -26,7 +26,7 @@ export const UpsertBike = ({bike}: Props) => {
   const [selectedModel, setSelectedModel] = useState<string>(bike?.model ?? '');
   const [selectedColor, setSelectedColor] = useState<string>(bike?.color ?? '');
   const [date, setDate] = useState<Dayjs | null>(dayjs(bike?.lastServiceDate));
-  const { save } = useSave<SaveBike>(bikeApiUrl);
+  const { create } = useCreate<SaveBike>(bikeApiUrl);
   const { update } = useUpdate<SaveBike>(bikeApiUrl, bike?.id ?? 0);
 
   const handleUpsert = () => {
@@ -37,7 +37,7 @@ export const UpsertBike = ({bike}: Props) => {
           lastServiceDate: formatDateOnly(date?.toDate())
         }, publishSuccess);
     } else {
-      save({
+      create({
           model: selectedModel, 
           color: selectedColor, 
           lastServiceDate: formatDateOnly(date?.toDate())

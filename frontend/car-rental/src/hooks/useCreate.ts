@@ -2,27 +2,27 @@ import { useState } from 'react';
 import axios from 'axios';
 
 // Overload: no response expected
-export function useSave<TRequest>(url: string): {
-  save: (payload: TRequest, onSuccess?: () => void) => Promise<void>;
+export function useCreate<TRequest>(url: string): {
+  create: (payload: TRequest, onSuccess?: () => void) => Promise<void>;
   saving: boolean;
   error: string | null;
 };
 
 // Overload: response of type TResponse
-export function useSave<TRequest, TResponse = any>(url: string): {
-  save: (payload: TRequest, onSuccess?: (res: TResponse) => void) => Promise<TResponse>;
+export function useCreate<TRequest, TResponse = any>(url: string): {
+  create: (payload: TRequest, onSuccess?: (res: TResponse) => void) => Promise<TResponse>;
   saving: boolean;
   error: string | null;
   response: TResponse | null;
 };
 
 // Implementation
-export function useSave<TRequest, TResponse = any>(url: string) {
+export function useCreate<TRequest, TResponse = any>(url: string) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<TResponse | null>(null);
 
-  const save = async (payload: TRequest, onSuccess?: (res: TResponse) => void) => {
+  const create = async (payload: TRequest, onSuccess?: (res: TResponse) => void) => {
     setSaving(true);
     setError(null);
     try {
@@ -38,5 +38,5 @@ export function useSave<TRequest, TResponse = any>(url: string) {
     }
   };
 
-  return { save, saving, error, response } as const;
+  return { create, saving, error, response } as const;
 }
