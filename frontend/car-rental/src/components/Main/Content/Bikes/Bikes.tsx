@@ -5,9 +5,12 @@ import { Bike } from "./dtos/Bike";
 import { ContainerStyled } from "./Bikes.styles";
 import UpdateIcon from '@mui/icons-material/Update';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useRefresh } from "../../../../contexts/RefreshContext";
+import { ContentEnum } from "../content.enum";
 
 export const Bikes = () => {
-  const { data, loading, error } = useFetch<Bike[]>(bikeApiUrl);
+  const { refreshKeys } = useRefresh();
+  const { data, loading, error } = useFetch<Bike[]>(bikeApiUrl, refreshKeys[ContentEnum.BIKES]);
 
   return ( 
     <>

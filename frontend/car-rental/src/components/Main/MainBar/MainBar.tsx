@@ -6,11 +6,12 @@ import { ContentEnum } from "../Content/content.enum";
 import { DrawerComponent, useActionDrawer } from "../ActionDrawer/ActionDrawerContext";
 import { UpsertBike } from "../Content/Bikes/UpsertBike/UpsertBike";
 import { UpsertStation } from "../Content/Stations/UpsertStation/UpsertStation";
-import { on } from "events";
+import { useRefresh } from "../../../contexts/RefreshContext";
 
 export const MainBar = () => {
   const { content } = useContent();
   const { openWith } = useActionDrawer();
+  const { triggerRefresh } = useRefresh();
 
   const getDescription = () => {
     switch (content) {
@@ -39,7 +40,7 @@ export const MainBar = () => {
       <StyledToolbar>
         <Tooltip title={`Add new ${getDescription()}`}>
           <IconButton
-            onClick={() => openWith({name: `Add new ${getDescription()}`, component: getComponent(), props: {edit: false}, onSuccess: () => { console.log('Drawer closed');}})}
+            onClick={() => openWith({name: `Add new ${getDescription()}`, component: getComponent(), props: {edit: false}, onSuccess: () => { triggerRefresh(content) }})}
             size="large"
             edge="end"
             color="inherit"

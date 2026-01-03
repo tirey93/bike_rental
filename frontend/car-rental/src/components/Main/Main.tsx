@@ -4,6 +4,7 @@ import { ContentProvider } from "./Content/ContentContext";
 import { Content } from "./Content/Content";
 import { ActionDrawerProvider } from "./ActionDrawer/ActionDrawerContext";
 import { ActionDrawer } from "./ActionDrawer/ActionDrawer";
+import { RefreshProvider } from "../../contexts/RefreshContext";
 
 
 
@@ -12,10 +13,12 @@ export const Main = () => {
     <>
       <ActionDrawerProvider>
         <ContentProvider>
-          <MainBar></MainBar>
-          <Drawer></Drawer>
-          <ActionDrawer></ActionDrawer>
-          <Content></Content>
+          <RefreshProvider>
+            <MainBar></MainBar>
+            <Drawer></Drawer>
+            <ActionDrawer></ActionDrawer>
+            <Content></Content>
+          </RefreshProvider>
         </ContentProvider> 
       </ActionDrawerProvider>
     </>
