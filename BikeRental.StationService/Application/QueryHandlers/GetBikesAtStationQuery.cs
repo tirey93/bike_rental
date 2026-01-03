@@ -23,7 +23,7 @@ namespace BikeRental.StationService.Application.QueryHandlers
             var station = _stationRepository.Get(request.StationId)
                 ?? throw new StationNotExistException(request.StationId);
 
-            var ids = station.BikesAtStation.Select(x => x.BikeExternalId);
+            var ids = station.BikesAtStation.Select(x => x.Bike.ExternalId);
             return Task.FromResult(ids);
         }
     }

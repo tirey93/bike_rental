@@ -34,7 +34,7 @@ namespace BikeRental.StationService.Application.CommandHandlers.BikeToStation
                 throw new BikeNotExistsException(request.ExternalBikeId);
             }
             var station = _stationRepository.Get(request.StationId);
-            station.RemoveBike(request.ExternalBikeId);
+            station.RemoveBike(bike);
             await _bus.Publish(new BikeAtStationRemovedEvent
             {
                 ExternalBikeId = request.ExternalBikeId,

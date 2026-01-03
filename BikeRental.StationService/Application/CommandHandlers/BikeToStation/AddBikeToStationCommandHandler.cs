@@ -36,7 +36,7 @@ namespace BikeRental.StationService.Application.CommandHandlers.BikeToStation
             }
 
             var station = _stationRepository.Get(request.StationId);
-            station.AddBike(request.ExternalBikeId);
+            station.AddBike(bike);
 
             await _bus.Publish(new BikeAtStationAddedEvent
             {

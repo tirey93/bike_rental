@@ -1,4 +1,6 @@
-﻿namespace BikeRental.StationService.Domain.Entities
+﻿using BikeRental.StationService.Domain.Entities.External;
+
+namespace BikeRental.StationService.Domain.Entities
 {
     public class BikeAtStation : Entity
     {
@@ -6,15 +8,15 @@
 
         public int StationId { get; private set; }
 
-        public Guid BikeExternalId { get; private set; }
+        public Bike Bike { get; private set; }
 
         public BikeAtStation() { }
 
-        public BikeAtStation(Station station, Guid bikeExternalId)
+        public BikeAtStation(Station station, Bike bike)
         {
             Station = station;
             StationId = station.Id;
-            BikeExternalId = bikeExternalId;
+            Bike = bike;
         }
     }
 }
