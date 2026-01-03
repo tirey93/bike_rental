@@ -7,10 +7,13 @@ import UpdateIcon from '@mui/icons-material/Update';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useRefresh } from "../../../../contexts/RefreshContext";
 import { ContentEnum } from "../content.enum";
+import { useActionDrawer } from "../../ActionDrawer/ActionDrawerContext";
+import { UpsertBike } from "./UpsertBike/UpsertBike";
 
 export const Bikes = () => {
-  const { refreshKeys } = useRefresh();
+  const { refreshKeys, triggerRefresh } = useRefresh();
   const { data, loading, error } = useFetch<Bike[]>(bikeApiUrl, refreshKeys[ContentEnum.BIKES]);
+  const { openWith } = useActionDrawer();
 
   return ( 
     <>
@@ -39,10 +42,11 @@ export const Bikes = () => {
                 <TableCell align="right">{row.color}</TableCell>
                 <TableCell align="right">{new Date(row.lastServiceDate).toDateString()}</TableCell>
                 <TableCell align="center">
-                  <IconButton aria-label="delete">
+                  <IconButton>
                     <DeleteIcon />
                   </IconButton>
-                  <IconButton aria-label="update">
+                  <IconButton 
+                    onClick={ () => openWith({component: UpsertBike, name: 'Update bike', props: {bike: row}, onSuccess: () => triggerRefresh(ContentEnum.BIKES) })}>
                     <UpdateIcon />
                   </IconButton>
                 </TableCell>

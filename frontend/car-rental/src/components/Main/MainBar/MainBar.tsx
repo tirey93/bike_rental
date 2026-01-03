@@ -40,7 +40,7 @@ export const MainBar = () => {
       <StyledToolbar>
         <Tooltip title={`Add new ${getDescription()}`}>
           <IconButton
-            onClick={() => openWith({name: `Add new ${getDescription()}`, component: getComponent(), props: {edit: false}, onSuccess: () => { triggerRefresh(content) }})}
+            onClick={() => openWith({name: `Add new ${getDescription()}`, component: getComponent(), onSuccess: () => { triggerRefresh(content) }})}
             size="large"
             edge="end"
             color="inherit"

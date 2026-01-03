@@ -3,11 +3,6 @@ using BikeRental.StationService.Application.CommandHandlers.Station;
 using BikeRental.StationService.Application.QueryHandlers;
 using BikeRental.StationService.Responses;
 using MediatR;
-using BikeRental.StationService.Application.CommandHandlers.BikeToStation;
-using BikeRental.StationService.Application.CommandHandlers.Station;
-using BikeRental.StationService.Application.QueryHandlers;
-using BikeRental.StationService.Responses;
-using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BikeRental.StationService
