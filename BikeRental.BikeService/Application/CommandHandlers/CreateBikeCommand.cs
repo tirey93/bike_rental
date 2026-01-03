@@ -39,6 +39,7 @@ namespace BikeRental.BikeService.Application.CommandHandlers
             await _bus.Publish(new BikeCreatedEvent
             {
                 ExternalBikeId = bike.ExternalId,
+                Model = request.Model,
             });
         }
     }

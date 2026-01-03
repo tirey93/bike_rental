@@ -25,7 +25,7 @@ namespace BikeRental.StationService.Infrastructure.Repositories
         public Station Get(int id)
         {
             return _dbSet
-                .Include(x => x.BikesAtStation)
+                .Include(x => x.BikesAtStation).ThenInclude(x => x.Bike)
                 .FirstOrDefault(x => x.Id == id);
         }
     }

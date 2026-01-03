@@ -4,12 +4,12 @@ using MediatR;
 
 namespace BikeRental.StationService.Application.QueryHandlers
 {
-    public class GetBikesAtStationQuery : IRequest<IEnumerable<Guid>>
+    public class GetBikesAtStationQuery : IRequest<IEnumerable<string>>
     {
         public int StationId { get; set; }
     }
 
-    public class GetBikesAtStationQueryHandler : IRequestHandler<GetBikesAtStationQuery, IEnumerable<Guid>>
+    public class GetBikesAtStationQueryHandler : IRequestHandler<GetBikesAtStationQuery, IEnumerable<string>>
     {
         private readonly IStationRepository _stationRepository;
 
@@ -18,13 +18,13 @@ namespace BikeRental.StationService.Application.QueryHandlers
             _stationRepository = stationRepository;
         }
 
-        public Task<IEnumerable<Guid>> Handle(GetBikesAtStationQuery request, CancellationToken cancellationToken)
+        public Task<IEnumerable<string>> Handle(GetBikesAtStationQuery request, CancellationToken cancellationToken)
         {
             var station = _stationRepository.Get(request.StationId)
                 ?? throw new StationNotExistException(request.StationId);
 
-            var ids = station.BikesAtStation.Select(x => x.Bike.ExternalId);
-            return Task.FromResult(ids);
+            var models = station.BikesAtStation.Select(x => x.Bike.Model);
+            return Task.FromResult(models);
         }
     }
 }

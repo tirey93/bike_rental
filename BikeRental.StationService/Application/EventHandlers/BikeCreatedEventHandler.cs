@@ -19,7 +19,10 @@ namespace BikeRental.StationService.Application.EventHandlers
             var exists = await _bikeRepository.IsExists(message.ExternalBikeId);
             if (!exists)
             {
-                await _bikeRepository.AddAsync(new Bike(message.ExternalBikeId));
+                await _bikeRepository.AddAsync(new Bike(message.ExternalBikeId)
+                {
+                    Model = message.Model
+                });
                 await _bikeRepository.SaveChangesAsync();
             }
         }
