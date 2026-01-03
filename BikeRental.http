@@ -24,6 +24,15 @@ Content-Type: application/json
 }
 
 ###
+DELETE {{BikeService_HostAddress}}/bike/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "id": "1"
+}
+
+###
 POST {{StationService_HostAddress}}/station/
 Accept: application/json
 Content-Type: application/json

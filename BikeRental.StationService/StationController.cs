@@ -40,11 +40,12 @@ namespace BikeRental.StationService
             }
         }
 
-        [HttpPut]
-        public async Task<ActionResult> Update([FromBody] UpdateStationCommand command)
+        [HttpPut("{id}")]
+        public async Task<ActionResult> Update(int id, [FromBody] UpdateStationCommand command)
         {
             try
             {
+                command.Id = id;
                 await _mediator.Send(command);
                 return NoContent();
             }
@@ -54,12 +55,12 @@ namespace BikeRental.StationService
             }
         }
 
-        [HttpDelete]
-        public async Task<ActionResult> Delete(DeleteStationCommand command)
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
         {
             try
             {
-                await _mediator.Send(command);
+                await _mediator.Send(new DeleteStationCommand { Id = id });
                 return NoContent();
             }
             catch (Exception ex)
