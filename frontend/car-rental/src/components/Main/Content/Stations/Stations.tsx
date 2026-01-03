@@ -56,7 +56,7 @@ export const Stations = () => {
                     onClick={ () => openWith({
                       component: UpsertStation,
                       name: 'Update station',
-                      // props: {station: row},
+                      props: {station: row},
                       onSuccess: () => triggerRefresh(ContentEnum.STATIONS)
                     })}>
                     <UpdateIcon />
