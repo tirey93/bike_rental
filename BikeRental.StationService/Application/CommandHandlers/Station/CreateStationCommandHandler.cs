@@ -1,6 +1,4 @@
-﻿using BikeRental.BikeService.Contracts.Events;
-using BikeRental.StationService.Contracts.Events;
-using BikeRental.StationService.Domain.Entities.External;
+﻿using BikeRental.StationService.Contracts.Events;
 using BikeRental.StationService.Domain.Repositories;
 using MediatR;
 using Rebus.Bus;
@@ -42,6 +40,9 @@ namespace BikeRental.StationService.Application.CommandHandlers.Station
             await _bus.Publish(new StationCreatedEvent
             {
                 ExternalStationId = station.ExternalId,
+                Location = request.Location,
+                Code = request.Code,
+                Capacity = request.Capacity,
             });
         }
     }

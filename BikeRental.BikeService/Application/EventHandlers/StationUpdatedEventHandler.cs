@@ -5,18 +5,18 @@ using Rebus.Handlers;
 
 namespace BikeRental.BikeService.Application.EventHandlers
 {
-    public class StationCreatedEventHandler : IHandleMessages<StationCreatedEvent>
+    public class StationUpdatedEventHandler : IHandleMessages<StationUpdatedEvent>
     {
         private readonly IStationRepository _stationRepository;
 
-        public StationCreatedEventHandler(IStationRepository stationRepository)
+        public StationUpdatedEventHandler(IStationRepository stationRepository)
         {
             _stationRepository = stationRepository;
         }
-        public async Task Handle(StationCreatedEvent message)
+        public async Task Handle(StationUpdatedEvent message)
         {
-            var isExists = await _stationRepository.IsExists(message.ExternalStationId);
-            if (!isExists)
+            var station = await _stationRepository.Get(message.ExternalStationId);
+            if (station == null)
             {
                 await _stationRepository.AddAsync(new Station(message.ExternalStationId)
                 {
@@ -24,8 +24,14 @@ namespace BikeRental.BikeService.Application.EventHandlers
                     Code = message.Code,
                     Capacity = message.Capacity,
                 });
-                await _stationRepository.SaveChangesAsync();
             }
+            else
+            {
+                station.Location = message.Location;
+                station.Code = message.Code;
+                station.Capacity = message.Capacity;
+            }
+            await _stationRepository.SaveChangesAsync();
         }
     }
 }

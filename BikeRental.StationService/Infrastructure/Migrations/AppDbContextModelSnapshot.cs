@@ -35,7 +35,7 @@ namespace BikeRental.StationService.Infrastructure.Migrations
 
                     b.HasIndex("StationId");
 
-                    b.ToTable("BikesAtStation");
+                    b.ToTable("BikesAtStation", (string)null);
                 });
 
             modelBuilder.Entity("BikeRental.StationService.Domain.Entities.External.Bike", b =>
@@ -55,7 +55,7 @@ namespace BikeRental.StationService.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ExternalBikes");
+                    b.ToTable("ExternalBikes", (string)null);
                 });
 
             modelBuilder.Entity("BikeRental.StationService.Domain.Entities.Station", b =>
@@ -78,7 +78,7 @@ namespace BikeRental.StationService.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Stations");
+                    b.ToTable("Stations", (string)null);
                 });
 
             modelBuilder.Entity("BikeRental.StationService.Domain.Entities.BikeAtStation", b =>
