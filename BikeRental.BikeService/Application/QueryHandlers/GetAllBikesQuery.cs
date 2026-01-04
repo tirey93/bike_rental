@@ -12,12 +12,10 @@ namespace BikeRental.BikeService.Application.QueryHandlers
     public class GetAllBikesQueryHandler : IRequestHandler<GetAllBikesQuery, IEnumerable<BikeResponse>>
     {
         private readonly IBikeRepository _bikeRepository;
-        private readonly IBikeAtStationRepository _bikeAtStationRepository;
 
-        public GetAllBikesQueryHandler(IBikeRepository bikeRepository, IBikeAtStationRepository bikeAtStationRepository)
+        public GetAllBikesQueryHandler(IBikeRepository bikeRepository)
         {
             _bikeRepository = bikeRepository;
-            _bikeAtStationRepository = bikeAtStationRepository;
         }
 
         public async Task<IEnumerable<BikeResponse>> Handle(GetAllBikesQuery request, CancellationToken cancellationToken)
@@ -31,7 +29,6 @@ namespace BikeRental.BikeService.Application.QueryHandlers
                     Color = bike.Color,
                     LastServiceDate = bike.LastServiceDate,
                     StationCode = bike.BikeAtStation?.Station?.Code,
-                    StationExternalId = bike.BikeAtStation?.Station?.ExternalId,
                 });
         }
     }

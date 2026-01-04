@@ -2,12 +2,12 @@ import { Button } from "@mui/material";
 import { useActionDrawer } from "../../../ActionDrawer/ActionDrawerContext";
 import { Wrapper } from "../../../../../pages/App/App.styles";
 import { FormControlStyled } from "../../../ActionDrawer/styles/FormControlStyled";
-import SaveIcon from '@mui/icons-material/Save';
 import { ConfirmationButtonWrapper } from "../../../ActionDrawer/styles/ConfirmationButtonWrapper";
 import { bikeApiUrl } from "../../../../../consts";
 import { Bike } from "../dtos/Bike";
 import { DeleteBikeConfirmationStyled } from "./DeleteBike.styled";
 import { useDelete } from "../../../../../hooks/useDelete";
+import DeleteIcon from '@mui/icons-material/Delete';
 
 type Props = {
   bike: Bike;
@@ -28,7 +28,7 @@ export const DeleteBike = ({bike}: Props) => {
       <ConfirmationButtonWrapper $important>
           <Button
             onClick={() => remove(publishSuccess)}
-            variant="contained" startIcon={<SaveIcon />}>{'Delete'}</Button>
+            variant="contained" startIcon={<DeleteIcon />}>{'Delete'}</Button>
       </ConfirmationButtonWrapper>
     </Wrapper>
   );

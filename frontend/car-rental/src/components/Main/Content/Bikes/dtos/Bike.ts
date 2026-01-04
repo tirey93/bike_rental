@@ -6,5 +6,4 @@ export interface Bike {
   color: string;
   lastServiceDate: Date;
   stationCode?: string;
-  stationExternalId?: string;
 }

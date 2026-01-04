@@ -6,5 +6,10 @@ namespace BikeRental.StationService.Application.Exceptions
         {
 
         }
+
+        public StationNotExistException(Guid externalId) : base($"Station with external id {externalId} not exists.")
+        {
+
+        }
     }
 }

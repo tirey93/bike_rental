@@ -9,6 +9,5 @@
         public DateOnly LastServiceDate { get; set; }
 
         public string StationCode { get; set; }
-        public Guid? StationExternalId { get; set; }
     }
 }

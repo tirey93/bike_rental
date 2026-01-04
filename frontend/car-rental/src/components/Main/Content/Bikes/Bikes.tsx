@@ -11,6 +11,7 @@ import { useActionDrawer } from "../../ActionDrawer/ActionDrawerContext";
 import { UpsertBike } from "./UpsertBike/UpsertBike";
 import { DeleteBike } from "./DeleteBike/DeleteBike";
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import { DisplayStation } from "./DisplayStation/DisplayStation";
 
 export const Bikes = () => {
   const { refreshKeys, triggerRefresh } = useRefresh();
@@ -45,12 +46,12 @@ export const Bikes = () => {
                 <TableCell align="right">{row.color}</TableCell>
                 <TableCell align="right">{new Date(row.lastServiceDate).toLocaleDateString()}</TableCell>
                 <TableCell align="center">
-                   {row.stationExternalId ? (<Button
-                    // onClick={ () => openWith({
-                    //   component: BikesAtStation,
-                    //   name: `Bikes at ${row.code} station`,
-                    //   props: {stationId: row.id}
-                    // })}
+                   {row.stationCode ? (<Button
+                    onClick={ () => openWith({
+                      component: DisplayStation,
+                      name: `Station ${row.stationCode}`,
+                      props: {bikeId: row.id}
+                    })}
                     >
                     {row.stationCode}
                   </Button>)
