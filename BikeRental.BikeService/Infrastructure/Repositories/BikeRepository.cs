@@ -18,7 +18,7 @@ namespace BikeRental.BikeService.Infrastructure.Repositories
 
         public IEnumerable<Bike> Get()
         {
-            return _dbSet;
+            return _dbSet.Include(x => x.BikeAtStation).ThenInclude(x => x.Station);
         }
 
         public async Task<Bike> Get(Guid externalId)

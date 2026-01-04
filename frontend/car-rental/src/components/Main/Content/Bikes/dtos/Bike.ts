@@ -5,4 +5,6 @@ export interface Bike {
   model: string;
   color: string;
   lastServiceDate: Date;
+  stationCode?: string;
+  stationExternalId?: string;
 }

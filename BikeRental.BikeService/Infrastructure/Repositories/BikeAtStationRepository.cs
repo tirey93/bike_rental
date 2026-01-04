@@ -27,12 +27,6 @@ namespace BikeRental.BikeService.Infrastructure.Repositories
                 .FirstOrDefaultAsync(x => x.Bike.ExternalId == externalBikeId && x.Station.ExternalId == externalStationId);
         }
 
-        public async Task<List<BikeAtStation>> Get()
-        {
-            return await _dbSet
-                .Include(x => x.Bike).ToListAsync();
-        }
-
         public async Task AddBikeAtStation(BikeAtStation bikeAtStation)
         {
             await _dbSet.AddAsync(bikeAtStation);
