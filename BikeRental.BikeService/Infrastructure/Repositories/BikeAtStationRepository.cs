@@ -42,5 +42,10 @@ namespace BikeRental.BikeService.Infrastructure.Repositories
         {
             _dbSet.Remove(bikeAtStation);
         }
+
+        public IEnumerable<BikeAtStation> GetByStation(int id)
+        {
+            return _dbSet.Where(x => x.StationId == id);
+        }
     }
 }

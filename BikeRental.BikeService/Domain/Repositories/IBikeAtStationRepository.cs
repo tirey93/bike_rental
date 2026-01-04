@@ -8,6 +8,7 @@ namespace BikeRental.BikeService.Domain.Repositories
         Task AddBikeAtStation(BikeAtStation bikeAtStation);
         Task<List<BikeAtStation>> Get();
         Task<BikeAtStation> Get(Guid externalBikeId, Guid externalStationId);
+        IEnumerable<BikeAtStation> GetByStation(int id);
         Task<bool> IsExists(Guid externalBikeId, Guid externalStationId);
         void RemoveBikeAtStation(BikeAtStation bikeAtStation);
     }
