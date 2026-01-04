@@ -45,6 +45,7 @@ app.Lifetime.ApplicationStarted.Register(async () =>
 
     await bus.Subscribe<BikeCreatedEvent>();
     await bus.Subscribe<BikeDeletedEvent>();
+    await bus.Subscribe<BikeUpdatedEvent>();
 });
 
 if (app.Environment.IsDevelopment())

@@ -1,6 +1,8 @@
 ﻿using BikeRental.BikeService.Application.Exceptions;
+using BikeRental.BikeService.Contracts.Events;
 using BikeRental.BikeService.Domain.Repositories;
 using MediatR;
+using Rebus.Bus;
 
 namespace BikeRental.BikeService.Application.CommandHandlers
 {
@@ -12,10 +14,12 @@ namespace BikeRental.BikeService.Application.CommandHandlers
     public class UpdateBikeCommandHandler : IRequestHandler<UpdateBikeCommand>
     {
         private readonly IBikeRepository _bikeRepository;
+        private readonly IBus _bus;
 
-        public UpdateBikeCommandHandler(IBikeRepository bikeRepository)
+        public UpdateBikeCommandHandler(IBikeRepository bikeRepository, IBus bus)
         {
             _bikeRepository = bikeRepository;
+            _bus = bus;
         }
 
         public async Task Handle(UpdateBikeCommand request, CancellationToken cancellationToken)
@@ -27,6 +31,12 @@ namespace BikeRental.BikeService.Application.CommandHandlers
             bike.LastServiceDate = request.LastServiceDate;
 
             await _bikeRepository.SaveChangesAsync();
+
+            await _bus.Publish(new BikeUpdatedEvent
+            {
+                ExternalBikeId = bike.ExternalId,
+                Model = request.Model,
+            });
         }
     }
 }
