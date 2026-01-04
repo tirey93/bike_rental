@@ -5,7 +5,7 @@ import { ContainerStyled } from "../../Bikes/Bikes.styles";
 import { Bike } from "../dtos/Bike";
 
 type Props = {
-  stationId: number
+  stationId: number,
 }
 export const BikesAtStation = ({stationId}: Props) => {
   const { data, loading, error } = useFetch<Bike[]>(`${stationApiUrl}/${stationId}/bikes`);

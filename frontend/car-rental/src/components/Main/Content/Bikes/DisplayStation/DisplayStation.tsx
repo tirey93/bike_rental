@@ -9,15 +9,21 @@ import { useDelete } from "../../../../../hooks/useDelete";
 import { BikeAtStation } from "../dtos/BikeAtStation";
 import DeleteIcon from '@mui/icons-material/Delete';
 
+
+interface RemoveBikeToStation{
+  stationId: number
+  externalBikeId: string
+}
 type Props = {
   bikeId: number;
+  externalBikeId: string;
 }
 
-export const DisplayStation = ({bikeId}: Props) => {
+export const DisplayStation = ({bikeId, externalBikeId}: Props) => {
   const { publishSuccess } = useActionDrawer();  
   
   const { data, loading, error } = useFetch<BikeAtStation>(`${stationApiUrl}/bike/${bikeId}/bikeAtStation`);
-  const { remove } = useDelete(`${stationApiUrl}/bike`, data?.stationId!); 
+  const { remove } = useDelete<RemoveBikeToStation>(`${stationApiUrl}/bike/station`, data?.stationId!); 
 
   return ( 
     <>
@@ -42,7 +48,7 @@ export const DisplayStation = ({bikeId}: Props) => {
         </FormControlStyled>
         <ConfirmationButtonWrapper $important>
           <Button
-            onClick={() => remove(publishSuccess)}
+            onClick={() => remove({externalBikeId: externalBikeId, stationId: data.stationId}, publishSuccess)}
             variant="contained" startIcon={<DeleteIcon />}>{'Delete'}</Button>
         </ConfirmationButtonWrapper>
       </Wrapper>}

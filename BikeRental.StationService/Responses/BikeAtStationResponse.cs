@@ -3,6 +3,7 @@
     public class BikeAtStationResponse
     {
         public int Id { get; set; }
+
         public int StationId { get; set; }
 
         public string Code { get; set; }

@@ -79,7 +79,7 @@ namespace BikeRental.StationService
             }
         }
 
-        [HttpDelete("{stationId}/bike")]
+        [HttpDelete("bike/station/{stationId}")]
         public async Task<ActionResult> RemoveBike(int stationId, [FromBody] RemoveBikeToStationCommand command)
         {
             try
