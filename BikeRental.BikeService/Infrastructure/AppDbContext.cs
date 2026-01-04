@@ -1,5 +1,4 @@
 ﻿using BikeRental.BikeService.Domain.Entities;
-using BikeRental.BikeService.Domain.Entities.External;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 

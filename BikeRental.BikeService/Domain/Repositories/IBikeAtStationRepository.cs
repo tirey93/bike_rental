@@ -1,4 +1,5 @@
-﻿using BikeRental.BikeService.Domain.Entities.External;
+﻿using BikeRental.BikeService.Domain.Entities;
+using BikeRental.BikeService.Domain.Entities.External;
 
 namespace BikeRental.BikeService.Domain.Repositories
 {

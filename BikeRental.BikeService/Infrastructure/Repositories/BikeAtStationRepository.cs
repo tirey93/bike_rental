@@ -1,4 +1,4 @@
-﻿using BikeRental.BikeService.Domain.Entities.External;
+﻿using BikeRental.BikeService.Domain.Entities;
 using BikeRental.BikeService.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,14 +15,16 @@ namespace BikeRental.BikeService.Infrastructure.Repositories
         {
             return await _dbSet
                 .Include(x => x.Bike)
-                .AnyAsync(x => x.Bike.ExternalId == externalBikeId && x.StationExternalId == externalBikeId);
+                .Include(x => x.Station)
+                .AnyAsync(x => x.Bike.ExternalId == externalBikeId && x.Station.ExternalId == externalBikeId);
         }
 
         public async Task<BikeAtStation> Get(Guid externalBikeId, Guid externalStationId)
         {
             return await _dbSet
                 .Include(x => x.Bike)
-                .FirstOrDefaultAsync(x => x.Bike.ExternalId == externalBikeId && x.StationExternalId == externalStationId);
+                .Include(x => x.Station)
+                .FirstOrDefaultAsync(x => x.Bike.ExternalId == externalBikeId && x.Station.ExternalId == externalStationId);
         }
 
         public async Task<List<BikeAtStation>> Get()

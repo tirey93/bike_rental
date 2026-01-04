@@ -1,4 +1,5 @@
-﻿using BikeRental.BikeService.Domain.Entities.External;
+﻿using BikeRental.BikeService.Domain.Entities;
+using BikeRental.BikeService.Domain.Entities.External;
 using BikeRental.BikeService.Domain.Repositories;
 using BikeRental.StationService.Contracts.Events;
 using Rebus.Handlers;
@@ -21,7 +22,7 @@ namespace BikeRental.BikeService.Application.EventHandlers
             if (!isExists)
             {
                 var bike = await _bikeRepository.Get(message.ExternalBikeId);
-                await _bikeAtStationRepository.AddBikeAtStation(new BikeAtStation(bike, message.ExternalStationId));
+                await _bikeAtStationRepository.AddBikeAtStation(new BikeAtStation(bike, new Station(message.ExternalStationId)));
                 await _bikeAtStationRepository.SaveChangesAsync();
             }
         }
