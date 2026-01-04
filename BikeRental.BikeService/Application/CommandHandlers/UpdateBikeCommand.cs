@@ -36,6 +36,7 @@ namespace BikeRental.BikeService.Application.CommandHandlers
             {
                 ExternalBikeId = bike.ExternalId,
                 Model = request.Model,
+                Color = request.Color,
             });
         }
     }

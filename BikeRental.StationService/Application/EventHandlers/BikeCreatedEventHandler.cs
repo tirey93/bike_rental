@@ -21,7 +21,8 @@ namespace BikeRental.StationService.Application.EventHandlers
             {
                 await _bikeRepository.AddAsync(new Bike(message.ExternalBikeId)
                 {
-                    Model = message.Model
+                    Model = message.Model,
+                    Color = message.Color
                 });
                 await _bikeRepository.SaveChangesAsync();
             }

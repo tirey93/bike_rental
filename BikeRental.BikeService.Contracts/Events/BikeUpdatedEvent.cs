@@ -6,5 +6,7 @@ namespace BikeRental.BikeService.Contracts.Events
         public Guid ExternalBikeId { get; set; }
 
         public string Model { get; set; }
+        public string Color { get; set; }
+
     }
 }
