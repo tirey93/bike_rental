@@ -1,4 +1,4 @@
-import { Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton } from "@mui/material";
+import { Paper, Table, TableHead, TableRow, TableCell, TableBody, IconButton, Tooltip } from "@mui/material";
 import { stationApiUrl } from "../../../../consts";
 import { useFetch } from "../../../../hooks/useFetch";
 import { Station } from "./dtos/Station";
@@ -10,6 +10,8 @@ import { ContentEnum } from "../content.enum";
 import { useActionDrawer } from "../../ActionDrawer/ActionDrawerContext";
 import { UpsertStation } from "./UpsertStation/UpsertStation";
 import { DeleteStation } from "./DeleteStation/DeleteStation";
+import ListIcon from '@mui/icons-material/List';
+import { BikesAtStation } from "./BikesAtStation/BikesAtStation";
 
 export const Stations = () => {
   const { refreshKeys, triggerRefresh } = useRefresh();
@@ -28,6 +30,7 @@ export const Stations = () => {
               <TableCell align="right">Code</TableCell>
               <TableCell align="right">Location</TableCell>
               <TableCell align="right">Capacity</TableCell>
+              <TableCell align="center">Bikes</TableCell>
               <TableCell align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -42,6 +45,20 @@ export const Stations = () => {
                 <TableCell align="right">{row.code}</TableCell>
                 <TableCell align="right">{row.location}</TableCell>
                 <TableCell align="right">{row.availableBikes}/{row.capacity}</TableCell>
+                <TableCell align="center">
+                  {row.availableBikes ? (
+                    <Tooltip title='See bikes'>
+                      <IconButton
+                        onClick={ () => openWith({
+                          component: BikesAtStation,
+                          name: `Bikes at ${row.code} station`,
+                          props: {stationId: row.id}
+                        })}>
+                        <ListIcon />
+                      </IconButton>
+                    </Tooltip>
+                  ) : (<IconButton disabled><ListIcon/></IconButton>)}
+                </TableCell>
                 <TableCell align="center">
                   <IconButton
                     onClick={ () => openWith({
