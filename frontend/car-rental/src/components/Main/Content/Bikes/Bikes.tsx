@@ -50,7 +50,8 @@ export const Bikes = () => {
                     onClick={ () => openWith({
                       component: DisplayStation,
                       name: `Station ${row.stationCode}`,
-                      props: {bikeId: row.id, externalBikeId: row.externalId}
+                      props: {bikeId: row.id, externalBikeId: row.externalId},
+                      onSuccess: () => triggerRefresh(ContentEnum.BIKES) 
                     })}
                     >
                     {row.stationCode}
