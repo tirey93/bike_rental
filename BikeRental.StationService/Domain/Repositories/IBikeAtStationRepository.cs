@@ -5,5 +5,6 @@ namespace BikeRental.StationService.Domain.Repositories
     public interface IBikeAtStationRepository : IRepository<BikeAtStation>
     {
         void AddBikeToStation(BikeAtStation bikeAtStation);
+        BikeAtStation GetByBike(int id);
     }
 }

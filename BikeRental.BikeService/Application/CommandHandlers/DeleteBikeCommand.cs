@@ -14,11 +14,13 @@ namespace BikeRental.BikeService.Application.CommandHandlers
     public class DeleteBikeCommandHandler : IRequestHandler<DeleteBikeCommand>
     {
         private readonly IBikeRepository _bikeRepository;
+        private readonly IBikeAtStationRepository _bikeAtStationRepository;
         private readonly IBus _bus;
 
-        public DeleteBikeCommandHandler(IBikeRepository bikeRepository, IBus bus)
+        public DeleteBikeCommandHandler(IBikeRepository bikeRepository, IBikeAtStationRepository bikeAtStationRepository, IBus bus)
         {
             _bikeRepository = bikeRepository;
+            _bikeAtStationRepository = bikeAtStationRepository;
             _bus = bus;
         }
 
@@ -26,6 +28,12 @@ namespace BikeRental.BikeService.Application.CommandHandlers
         {
             var bike = await _bikeRepository.Get(request.Id)
                 ?? throw new BikeNotExistException(request.Id);
+
+            if (bike.BikeAtStation != null)
+            {
+                _bikeAtStationRepository.Remove(bike.BikeAtStation);
+                await _bikeAtStationRepository.SaveChangesAsync();
+            }
             _bikeRepository.Remove(bike);
             await _bikeRepository.SaveChangesAsync();
 

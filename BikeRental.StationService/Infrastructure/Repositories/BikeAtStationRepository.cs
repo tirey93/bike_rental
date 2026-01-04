@@ -15,5 +15,10 @@ namespace BikeRental.StationService.Infrastructure.Repositories
         {
             _dbSet.Add(bikeAtStation);
         }
+
+        public BikeAtStation GetByBike(int id)
+        {
+            return _dbSet.FirstOrDefault(x => x.BikeId == id);
+        }
     }
 }

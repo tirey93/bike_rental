@@ -28,7 +28,7 @@ namespace BikeRental.BikeService.Infrastructure.Repositories
 
         public async Task<Bike> Get(int id)
         {
-            return await _dbSet.FirstOrDefaultAsync(x => x.Id == id);
+            return await _dbSet.Include(x => x.BikeAtStation).FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }
