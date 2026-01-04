@@ -1,6 +1,7 @@
 ﻿using BikeRental.BikeService.Domain.Repositories;
 using BikeRental.BikeService.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using StationRental.StationService.Infrastructure.Repositories;
 
 namespace BikeRental.BikeService.Infrastructure
 {
@@ -10,6 +11,7 @@ namespace BikeRental.BikeService.Infrastructure
         {
             services.AddDbContext<AppDbContext>(options => options.UseSqlite(filename));
             services.AddScoped<IBikeRepository, BikeRepository>();
+            services.AddScoped<IStationRepository, StationRepository>();
             services.AddScoped<IBikeAtStationRepository, BikeAtStationRepository>();
         }
     }

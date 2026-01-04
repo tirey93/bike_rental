@@ -46,6 +46,8 @@ app.Lifetime.ApplicationStarted.Register(async () =>
 
     await bus.Subscribe<BikeAtStationAddedEvent>();
     await bus.Subscribe<BikeAtStationRemovedEvent>();
+    await bus.Subscribe<StationCreatedEvent>();
+    await bus.Subscribe<StationRemovedEvent>();
 });
 
 // Configure the HTTP request pipeline.
