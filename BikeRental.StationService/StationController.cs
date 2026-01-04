@@ -108,7 +108,7 @@ namespace BikeRental.StationService
         }
 
         [HttpGet("{stationId}/bikes")]
-        public async Task<ActionResult<IEnumerable<string>>> GetBikes(int stationId)
+        public async Task<ActionResult<IEnumerable<BikeResponse>>> GetBikes(int stationId)
         {
             try
             {
