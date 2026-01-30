@@ -48,3 +48,13 @@ services:
     ports:
       - "5002:80"
     restart: unless-stopped
+
+  frontend:
+    container_name: bike-rental-frontend
+    build:
+      context: ../
+      dockerfile: docker/frontend.dockerfile
+    ports:
+      - "3000:3000"  # Dla development serwera
+    restart: unless-stopped
+  
