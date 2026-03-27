@@ -1,6 +1,7 @@
 using BikeRental.BikeAtStationService.Contracts.Events;
 using BikeRental.BikeAtStationService.Domain.Entities;
 using BikeRental.BikeAtStationService.Domain.Entities.External;
+using BikeRental.BikeAtStationService.Domain.Exceptions;
 using BikeRental.BikeAtStationService.Domain.Repositories;
 using MediatR;
 using Rebus.Bus;
@@ -26,6 +27,12 @@ namespace BikeRental.BikeAtStationService.Application.CommandHandlers
 
         public async Task Handle(AddBikeToStationCommand request, CancellationToken cancellationToken)
         {
+            var exists = await _bikeAtStationRepository.Get(request.ExternalBikeId, request.ExternalStationId);
+            if (exists != null)
+            {
+                throw new BikeAlreadyAtStationException(request.ExternalBikeId, request.ExternalStationId);
+            }
+
             var bike = new Bike(request.ExternalBikeId);
             var station = new Station(request.ExternalStationId);
 

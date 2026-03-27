@@ -1,4 +1,3 @@
-using BikeRental.StationService.Application.CommandHandlers.BikeToStation;
 using BikeRental.StationService.Application.CommandHandlers.Station;
 using BikeRental.StationService.Application.QueryHandlers;
 using BikeRental.StationService.Responses;
@@ -56,36 +55,6 @@ namespace BikeRental.StationService
             try
             {
                 await _mediator.Send(new DeleteStationCommand { Id = id });
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
-            }
-        }
-
-        [HttpPost("{stationId}/bike")]
-        public async Task<ActionResult> AddBike(int stationId, [FromBody] AddBikeToStationCommand command)
-        {
-            try
-            {
-                command.StationId = stationId;
-                await _mediator.Send(command);
-                return NoContent();
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
-            }
-        }
-
-        [HttpDelete("bike/station/{stationId}")]
-        public async Task<ActionResult> RemoveBike(int stationId, [FromBody] RemoveBikeToStationCommand command)
-        {
-            try
-            {
-                command.StationId = stationId;
-                await _mediator.Send(command);
                 return NoContent();
             }
             catch (Exception ex)

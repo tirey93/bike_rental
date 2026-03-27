@@ -1,5 +1,4 @@
-﻿using BikeRental.StationService.Domain.Entities.External;
-using BikeRental.StationService.Domain.Exceptions;
+using BikeRental.StationService.Domain.Entities.External;
 
 namespace BikeRental.StationService.Domain.Entities
 {
@@ -12,26 +11,5 @@ namespace BikeRental.StationService.Domain.Entities
         public int Capacity { get; set; }
 
         public ICollection<BikeAtStation> BikesAtStation { get; private set; } = [];
-
-        public void AddBike(Bike bike)
-        {
-            if (BikesAtStation.Any(x => x.BikeId == bike.Id)) 
-            {
-                throw new BikeAlreadyAtStationException(bike.ExternalId, this);
-            }
-
-            BikesAtStation.Add(new BikeAtStation(this, bike));
-        }
-
-        public void RemoveBike(Bike bike)
-        {
-            var bikeAtStation = BikesAtStation.FirstOrDefault(x => x.BikeId == bike.Id);
-            if (bikeAtStation == null)
-            {
-                throw new BikeNotExistsAtStationException(bike.ExternalId, this);
-            }
-
-            BikesAtStation.Remove(bikeAtStation);
-        }
     }
 }
