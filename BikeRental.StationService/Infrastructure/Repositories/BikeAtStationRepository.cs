@@ -1,7 +1,6 @@
 ﻿using BikeRental.StationService.Domain.Entities;
 using BikeRental.StationService.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
-using RabbitMQ.Client;
 
 namespace BikeRental.StationService.Infrastructure.Repositories
 {
@@ -25,6 +24,19 @@ namespace BikeRental.StationService.Infrastructure.Repositories
         public IEnumerable<BikeAtStation> GetByStation(int id)
         {
             return _dbSet.Where(x => x.StationId == id);
+        }
+
+        public async Task<BikeAtStation> Get(Guid externalBikeId, Guid externalStationId)
+        {
+            return await _dbSet
+                .Include(x => x.Bike)
+                .Include(x => x.Station)
+                .FirstOrDefaultAsync(x => x.Bike.ExternalId == externalBikeId && x.Station.ExternalId == externalStationId);
+        }
+
+        public void RemoveBikeAtStation(BikeAtStation bikeAtStation)
+        {
+            _dbSet.Remove(bikeAtStation);
         }
 
     }

@@ -2,7 +2,7 @@ import { Button, TextField } from "@mui/material";
 import { useActionDrawer } from "../../../ActionDrawer/ActionDrawerContext";
 import { Wrapper } from "../../../../../pages/App/App.styles";
 import { FormControlStyled } from "../../../ActionDrawer/styles/FormControlStyled";
-import { bikeApiUrl, stationApiUrl } from "../../../../../consts";
+import { bikeApiUrl, bikeAtStationApiUrl, stationApiUrl } from "../../../../../consts";
 import { useFetch } from "../../../../../hooks/useFetch";
 import { ConfirmationButtonWrapper } from "../../../ActionDrawer/styles/ConfirmationButtonWrapper";
 import { useDelete, useDeleteWithBody } from "../../../../../hooks/useDelete";
@@ -11,7 +11,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 
 interface RemoveBikeToStation{
-  stationId: number
+  externalStationId: string
   externalBikeId: string
 }
 type Props = {
@@ -23,7 +23,7 @@ export const DisplayStation = ({bikeId, externalBikeId}: Props) => {
   const { publishSuccess } = useActionDrawer();  
   
   const { data, loading, error } = useFetch<BikeAtStation>(`${bikeApiUrl}/${bikeId}/station`);
-  const { remove } = useDeleteWithBody<RemoveBikeToStation>(`${stationApiUrl}/bike/station`, data?.stationId!); 
+  const { remove } = useDeleteWithBody<RemoveBikeToStation>(`${bikeAtStationApiUrl}`); 
 
   return ( 
     <>
@@ -48,7 +48,7 @@ export const DisplayStation = ({bikeId, externalBikeId}: Props) => {
         </FormControlStyled>
         <ConfirmationButtonWrapper $important>
           <Button
-            onClick={() => remove({externalBikeId: externalBikeId, stationId: data.stationId}, publishSuccess)}
+            onClick={() => remove({externalBikeId: externalBikeId, externalStationId: data.externalStationId}, publishSuccess)}
             variant="contained" startIcon={<DeleteIcon />}>{'Delete'}</Button>
         </ConfirmationButtonWrapper>
       </Wrapper>}

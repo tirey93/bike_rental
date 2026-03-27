@@ -1,7 +1,7 @@
 
 export interface BikeAtStation {
   id: number;
-  stationId: number;
+  externalStationId: string;
   code: string;
   location: string;
   capacity: number;

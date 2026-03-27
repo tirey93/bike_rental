@@ -29,7 +29,7 @@ namespace BikeRental.BikeService.Application.QueryHandlers
             return new BikeAtStationResponse
             {
                 Id = bikeAtStation.Id,
-                StationId = bikeAtStation.StationId,
+                ExternalStationId = bikeAtStation.Station.ExternalId,
                 Code = bikeAtStation.Station.Code,
                 Location = bikeAtStation.Station.Location,
                 Capacity = bikeAtStation.Station.Capacity
