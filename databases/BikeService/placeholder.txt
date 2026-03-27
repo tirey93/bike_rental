@@ -1,0 +1,30 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table Bikes {
+  Id integer
+  BikeAtStationId integer
+  Color text
+  ExternalId text
+  LastServiceDate date
+  Model text
+}
+
+Table ExternalBikeAtStations {
+  Id integer [primary key]
+  BikeId integer
+  StationId integer
+}
+
+Table Stations {
+  Id integer [primary key]
+  ExternalId integer
+  Capacity integer
+  Code integer
+  Location integer
+}
+
+Ref FK_Bikes_ExternalBikeAtStations_BikeAtStationId: Bikes.BikeAtStationId > ExternalBikeAtStations.Id // many-to-one
+
+Ref FK_ExternalBikeAtStations_Stations_StationId: ExternalBikeAtStations.StationId > Stations.Id // many-to-one
+Ref FK_ExternalBikeAtStations_Bike_StationId: ExternalBikeAtStations.BikeId > Bikes.Id // many-to-one

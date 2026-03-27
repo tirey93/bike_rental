@@ -28,7 +28,9 @@ export function useDelete<TBody = void>(url: string, id: number) {
       } else {
         await axios.delete(`${url}/${id}`);
       }
-      if (onSuccess) onSuccess();
+      if (onSuccess) {
+        onSuccess();
+      };
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Unknown error');
       throw err;
