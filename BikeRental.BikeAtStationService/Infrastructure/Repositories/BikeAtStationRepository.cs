@@ -11,6 +11,14 @@ namespace BikeRental.BikeAtStationService.Infrastructure.Repositories
         {
         }
 
+        public async Task<BikeAtStation?> Get(Guid externalBikeId, Guid externalStationId)
+        {
+            return await _dbSet
+                .Include(x => x.Bike)
+                .Include(x => x.Station)
+                .FirstOrDefaultAsync(x => x.Bike.ExternalId == externalBikeId && x.Station.ExternalId == externalStationId);
+        }
+
         public async Task<IEnumerable<BikeAtStation>> GetAll()
         {
             return await _dbSet

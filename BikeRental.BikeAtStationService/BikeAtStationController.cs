@@ -1,3 +1,4 @@
+using BikeRental.BikeAtStationService.Application.CommandHandlers;
 using BikeRental.BikeAtStationService.Application.QueryHandlers;
 using BikeRental.BikeAtStationService.Responses;
 using MediatR;
@@ -24,6 +25,34 @@ namespace BikeRental.BikeAtStationService
             try
             {
                 return Ok(await _mediator.Send(new GetAllBikeAtStationsQuery()));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Add([FromBody] AddBikeToStationCommand command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> Remove([FromBody] RemoveBikeFromStationCommand command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return NoContent();
             }
             catch (Exception ex)
             {
