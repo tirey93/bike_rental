@@ -1,5 +1,6 @@
 using BikeRental.BikeAtStationService.Infrastructure;
 using BikeRental.BikeService.Contracts.Events;
+using BikeRental.StationService.Contracts.Events;
 using Rebus.Bus;
 using Rebus.Config;
 using System.Reflection;
@@ -44,6 +45,8 @@ app.Lifetime.ApplicationStarted.Register(async () =>
 
     await bus.Subscribe<BikeCreatedEvent>();
     await bus.Subscribe<BikeDeletedEvent>();
+    await bus.Subscribe<StationCreatedEvent>();
+    await bus.Subscribe<StationRemovedEvent>();
 });
 
 if (app.Environment.IsDevelopment())

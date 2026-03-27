@@ -17,6 +17,7 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="BikeRental.BikeService.Contracts" Version="1.4.0" />
+		<PackageReference Include="BikeRental.StationService.Contracts" Version="1.2.1" />
 		<ProjectReference Include="..\BikeRental.BikeAtStationService.Contracts\BikeRental.BikeAtStationService.Contracts.csproj" />
 	</ItemGroup>
 </Project>
