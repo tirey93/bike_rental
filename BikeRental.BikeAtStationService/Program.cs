@@ -1,4 +1,6 @@
 using BikeRental.BikeAtStationService.Infrastructure;
+using BikeRental.BikeService.Contracts.Events;
+using Rebus.Bus;
 using Rebus.Config;
 using System.Reflection;
 
@@ -34,6 +36,15 @@ builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
 
 var app = builder.Build();
 app.UseCors("MyPolicy");
+
+app.Lifetime.ApplicationStarted.Register(async () =>
+{
+    using var scope = app.Services.CreateScope();
+    var bus = scope.ServiceProvider.GetRequiredService<IBus>();
+
+    await bus.Subscribe<BikeCreatedEvent>();
+    await bus.Subscribe<BikeDeletedEvent>();
+});
 
 if (app.Environment.IsDevelopment())
 {
