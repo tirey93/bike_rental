@@ -1,0 +1,15 @@
+using BikeRental.BikeAtStationService.Domain.Repositories;
+using BikeRental.BikeAtStationService.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
+
+namespace BikeRental.BikeAtStationService.Infrastructure
+{
+    public static class Extensions
+    {
+        public static void AddInfrastructure(this IServiceCollection services, string filename)
+        {
+            services.AddDbContext<AppDbContext>(options => options.UseSqlite(filename));
+            services.AddScoped<IBikeAtStationRepository, BikeAtStationRepository>();
+        }
+    }
+}
