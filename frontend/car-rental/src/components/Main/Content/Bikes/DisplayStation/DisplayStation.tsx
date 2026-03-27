@@ -22,7 +22,7 @@ type Props = {
 export const DisplayStation = ({bikeId, externalBikeId}: Props) => {
   const { publishSuccess } = useActionDrawer();  
   
-  const { data, loading, error } = useFetch<BikeAtStation>(`${stationApiUrl}/bike/${bikeId}/bikeAtStation`);
+  const { data, loading, error } = useFetch<BikeAtStation>(`${bikeApiUrl}/${bikeId}/station`);
   const { remove } = useDeleteWithBody<RemoveBikeToStation>(`${stationApiUrl}/bike/station`, data?.stationId!); 
 
   return ( 

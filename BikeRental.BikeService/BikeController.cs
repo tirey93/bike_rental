@@ -74,5 +74,23 @@ namespace BikeRental.BikeService
                 return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
             }
         }
+
+        [HttpGet("{bikeId}/station")]
+        public async Task<ActionResult<BikeAtStationResponse>> GetStationByBike(int bikeId)
+        {
+            try
+            {
+                var result = await _mediator.Send(new GetByBikeQuery { BikeId = bikeId });
+                if (result == null)
+                {
+                    return NotFound();
+                }
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+        }
     }
 }

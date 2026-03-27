@@ -120,17 +120,5 @@ namespace BikeRental.StationService
             }
         }
 
-        [HttpGet("bike/{bikeId}/bikeAtStation")]
-        public async Task<ActionResult<BikeAtStationResponse>> GetByExternal(int bikeId)
-        {
-            try
-            {
-                return Ok(await _mediator.Send(new GetByBikeQuery { BikeId = bikeId}));
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
-            }
-        }
     }
 }
