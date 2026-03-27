@@ -1,3 +1,4 @@
+using BikeRental.BikeAtStationService.Contracts.Events;
 using BikeRental.BikeService.Infrastructure;
 using BikeRental.StationService.Contracts.Events;
 using Microsoft.Extensions.DependencyInjection;
@@ -44,8 +45,8 @@ app.Lifetime.ApplicationStarted.Register(async () =>
     using var scope = app.Services.CreateScope();
     var bus = scope.ServiceProvider.GetRequiredService<IBus>();
 
-    await bus.Subscribe<BikeAtStationAddedEvent>();
-    await bus.Subscribe<BikeAtStationRemovedEvent>();
+    await bus.Subscribe<BikeRental.BikeAtStationService.Contracts.Events.BikeAtStationAddedEvent>();
+    await bus.Subscribe<BikeRental.BikeAtStationService.Contracts.Events.BikeAtStationRemovedEvent>();
     await bus.Subscribe<StationCreatedEvent>();
     await bus.Subscribe<StationRemovedEvent>();
     await bus.Subscribe<StationUpdatedEvent>();

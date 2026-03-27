@@ -1,6 +1,5 @@
-﻿using BikeRental.BikeService.Domain.Entities.External;
+﻿using BikeRental.BikeAtStationService.Contracts.Events;
 using BikeRental.BikeService.Domain.Repositories;
-using BikeRental.StationService.Contracts.Events;
 using Rebus.Handlers;
 
 namespace BikeRental.BikeService.Application.EventHandlers.BikeAtStation
