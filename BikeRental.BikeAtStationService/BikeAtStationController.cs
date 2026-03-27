@@ -1,5 +1,4 @@
 using BikeRental.BikeAtStationService.Application.CommandHandlers;
-using BikeRental.BikeAtStationService.Application.QueryHandlers;
 using BikeRental.BikeAtStationService.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -17,19 +16,6 @@ namespace BikeRental.BikeAtStationService
         {
             _logger = logger;
             _mediator = mediator;
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<BikeAtStationResponse>>> GetAll()
-        {
-            try
-            {
-                return Ok(await _mediator.Send(new GetAllBikeAtStationsQuery()));
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
-            }
         }
 
         [HttpPost]
