@@ -12,6 +12,7 @@ import { UpsertBike } from "./UpsertBike/UpsertBike";
 import { DeleteBike } from "./DeleteBike/DeleteBike";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { DisplayStation } from "./DisplayStation/DisplayStation";
+import { AddStationToBike } from "./AddStationToBike/AddStationToBike";
 
 export const Bikes = () => {
   const { refreshKeys, triggerRefresh } = useRefresh();
@@ -57,7 +58,15 @@ export const Bikes = () => {
                     {row.stationCode}
                   </Button>)
                   : (
-                    <IconButton><AddBoxIcon></AddBoxIcon></IconButton>
+                    <IconButton
+                    onClick={ () => openWith({
+                      component: AddStationToBike, 
+                      name: `Add station to bike ${row.model}`, 
+                      props: {bike: row}, 
+                      onSuccess: () => triggerRefresh(ContentEnum.BIKES) 
+                    })}>
+                    <AddBoxIcon />
+                  </IconButton>
                   )}
                 </TableCell>
                 <TableCell align="center">

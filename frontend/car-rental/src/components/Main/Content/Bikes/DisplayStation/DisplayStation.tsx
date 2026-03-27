@@ -5,7 +5,7 @@ import { FormControlStyled } from "../../../ActionDrawer/styles/FormControlStyle
 import { bikeApiUrl, stationApiUrl } from "../../../../../consts";
 import { useFetch } from "../../../../../hooks/useFetch";
 import { ConfirmationButtonWrapper } from "../../../ActionDrawer/styles/ConfirmationButtonWrapper";
-import { useDelete } from "../../../../../hooks/useDelete";
+import { useDelete, useDeleteWithBody } from "../../../../../hooks/useDelete";
 import { BikeAtStation } from "../dtos/BikeAtStation";
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -23,7 +23,7 @@ export const DisplayStation = ({bikeId, externalBikeId}: Props) => {
   const { publishSuccess } = useActionDrawer();  
   
   const { data, loading, error } = useFetch<BikeAtStation>(`${stationApiUrl}/bike/${bikeId}/bikeAtStation`);
-  const { remove } = useDelete<RemoveBikeToStation>(`${stationApiUrl}/bike/station`, data?.stationId!); 
+  const { remove } = useDeleteWithBody<RemoveBikeToStation>(`${stationApiUrl}/bike/station`, data?.stationId!); 
 
   return ( 
     <>

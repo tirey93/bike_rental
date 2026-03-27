@@ -1,22 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-// Overload: no response expected
-export function useCreate<TRequest>(url: string): {
-  create: (payload: TRequest, onSuccess?: () => void) => Promise<void>;
-  saving: boolean;
-  error: string | null;
-};
-
-// Overload: response of type TResponse
-export function useCreate<TRequest, TResponse = any>(url: string): {
-  create: (payload: TRequest, onSuccess?: (res: TResponse) => void) => Promise<TResponse>;
-  saving: boolean;
-  error: string | null;
-  response: TResponse | null;
-};
-
-// Implementation
 export function useCreate<TRequest, TResponse = any>(url: string) {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
