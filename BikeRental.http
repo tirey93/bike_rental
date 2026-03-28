@@ -1,10 +1,11 @@
- @BikeService_HostAddress = http://localhost:5146
- @StationService_HostAddress = http://localhost:5139
+#  @BikeService_HostAddress = http://localhost:5146
+#  @StationService_HostAddress = http://localhost:5139
 
-@BikeAtStationService_HostAddress = http://localhost:5226
+# @BikeAtStationService_HostAddress = http://localhost:5226
 
-# @BikeService_HostAddress = http://localhost:5001
-# @StationService_HostAddress = http://localhost:5002
+@BikeService_HostAddress = http://localhost:5001
+@StationService_HostAddress = http://localhost:5002
+@BikeAtStationService_HostAddress = http://localhost:5003
 
 ###
 GET {{BikeService_HostAddress}}/bike/

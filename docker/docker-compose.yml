@@ -37,8 +37,8 @@ services:
       context: ../
       dockerfile: docker/StationService.dockerfile
     depends_on:
-      - rabbitmq
-      - bikeservice
+      rabbitmq:
+        condition: service_healthy
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:80
@@ -47,6 +47,24 @@ services:
       - ../databases/StationService:/app/Data
     ports:
       - "5002:80"
+    restart: unless-stopped
+
+  bikeatstationservice:
+    container_name: bike-rental-bikeatstationservice
+    build:
+      context: ../
+      dockerfile: docker/BikeAtStationService.dockerfile
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:80
+    volumes:
+      # Mapuj lokalną bazę do kontenera
+      - ../databases/BikeAtStationService:/app/Data
+    ports:
+      - "5003:80"
     restart: unless-stopped
 
   frontend:
