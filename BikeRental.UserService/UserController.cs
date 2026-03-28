@@ -1,5 +1,6 @@
 using BikeRental.UserService.Application.CommandHandlers;
 using BikeRental.UserService.Application.QueryHandlers;
+using BikeRental.UserService.Requests;
 using BikeRental.UserService.Responses;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -72,6 +73,24 @@ namespace BikeRental.UserService
                 request.UserId = id;
                 await _mediator.Send(request);
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, new { ex.Message });
+            }
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult<UserResponse>> Login([FromBody] LoginRequest request)
+        {
+            try
+            {
+                var result = await _mediator.Send(new GetUserByLoginQuery { UserName = request.UserName, Password = request.Password });
+                if (result == null)
+                {
+                    return NotFound(new { Message = "Invalid username or password." });
+                }
+                return Ok(result);
             }
             catch (Exception ex)
             {

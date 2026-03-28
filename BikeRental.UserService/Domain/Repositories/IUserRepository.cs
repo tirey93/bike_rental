@@ -6,6 +6,7 @@ namespace BikeRental.UserService.Domain.Repositories
     {
         Task AddUser(User user);
         Task<User> Get(int id);
+        Task<User> GetByUserName(string userName);
         Task<IEnumerable<User>> GetAll();
     }
 }

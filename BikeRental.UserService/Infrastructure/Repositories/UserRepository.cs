@@ -21,6 +21,11 @@ namespace BikeRental.UserService.Infrastructure.Repositories
             return await _dbSet.FirstOrDefaultAsync(u => u.Id == id);
         }
 
+        public async Task<User> GetByUserName(string userName)
+        {
+            return await _dbSet.FirstOrDefaultAsync(u => u.UserName == userName);
+        }
+
         public async Task<IEnumerable<User>> GetAll()
         {
             return await _dbSet.ToListAsync();

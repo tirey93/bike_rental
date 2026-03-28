@@ -1,3 +1,4 @@
+using BikeRental.UserService.Application.Exceptions;
 using BikeRental.UserService.Domain.Entities;
 using BikeRental.UserService.Domain.Repositories;
 using MediatR;
@@ -22,6 +23,11 @@ namespace BikeRental.UserService.Application.CommandHandlers
 
         public async Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
+            var existingUser = await _userRepository.GetByUserName(request.UserName);
+            if (existingUser != null)
+            {
+                throw new UserAlreadyExistsException(request.UserName);
+            }
             var user = new User(request.UserName, request.Password, request.Balance);
             await _userRepository.AddUser(user);
             await _userRepository.SaveChangesAsync();
