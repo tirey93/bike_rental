@@ -2,10 +2,13 @@
 #  @StationService_HostAddress = http://localhost:5139
 
 # @BikeAtStationService_HostAddress = http://localhost:5226
+# @UserService_HostAddress = http://localhost:5012
+
 
 @BikeService_HostAddress = http://localhost:5001
 @StationService_HostAddress = http://localhost:5002
 @BikeAtStationService_HostAddress = http://localhost:5003
+@UserService_HostAddress = http://localhost:5004
 
 ###
 GET {{BikeService_HostAddress}}/bike/
@@ -51,4 +54,20 @@ Content-Type: application/json
 {
   "externalBikeId": "2563bc65-a430-4b59-a2ca-16e6d2e0e595",
   "externalStationId": "a2bcc144-d7f8-4976-a13a-79effc348c4e"
+}
+
+###
+GET {{UserService_HostAddress}}/user/
+Accept: application/json
+
+
+###
+POST {{UserService_HostAddress}}/user/
+Accept: application/json
+Content-Type: application/json
+
+{
+  "userName": "User123",
+  "password": "password",
+  "balance": 123
 }

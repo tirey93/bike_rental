@@ -67,6 +67,24 @@ services:
       - "5003:80"
     restart: unless-stopped
 
+  userservice:
+    container_name: bike-rental-userservice
+    build:
+      context: ../
+      dockerfile: docker/UserService.dockerfile
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:80
+    volumes:
+      # Mapuj lokalną bazę do kontenera
+      - ../databases/UserService:/app/Data
+    ports:
+      - "5004:80"
+    restart: unless-stopped
+
   frontend:
     container_name: bike-rental-frontend
     build:
