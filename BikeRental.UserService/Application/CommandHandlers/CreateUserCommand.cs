@@ -7,7 +7,7 @@ namespace BikeRental.UserService.Application.CommandHandlers
     public class CreateUserCommand : IRequest
     {
         public string UserName { get; set; }
-        public string HashedPassword { get; set; }
+        public string Password { get; set; }
         public int Balance { get; set; }
     }
 
@@ -22,7 +22,7 @@ namespace BikeRental.UserService.Application.CommandHandlers
 
         public async Task Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
-            var user = new User(request.UserName, request.HashedPassword, request.Balance);
+            var user = new User(request.UserName, request.Password, request.Balance);
             await _userRepository.AddUser(user);
             await _userRepository.SaveChangesAsync();
         }
