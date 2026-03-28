@@ -1,13 +1,14 @@
+using BikeRental.UserService.Domain.Exceptions;
 using System.Security.Cryptography;
 using System.Text;
 
 namespace BikeRental.UserService.Domain.Entities
 {
-    public class User : Entity
+    public class User : ExternalEntity
     {
         public string UserName { get; set; }
         public string HashedPassword { get; private set; }
-        public int Balance { get; set; }
+        public int Balance { get; private set; }
 
         public User() { }
 
@@ -26,6 +27,15 @@ namespace BikeRental.UserService.Domain.Entities
             var hash = SHA256.HashData(bytes);
             var hashString = Convert.ToBase64String(hash);
             return HashedPassword == hashString;
+        }
+
+        public void SetBalance(int balance)
+        {
+            if (balance < 0)
+            {
+                throw new BalanceBelowZeroException();
+            }
+            Balance = balance;
         }
     }
 }
