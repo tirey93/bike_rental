@@ -8,12 +8,10 @@ import { ConfirmationButtonWrapper } from "../../../ActionDrawer/styles/Confirma
 import { useDelete, useDeleteWithBody } from "../../../../../hooks/useDelete";
 import { BikeAtStation } from "../dtos/BikeAtStation";
 import DeleteIcon from '@mui/icons-material/Delete';
+import { RemoveBikeToStation } from "./RemoveBikeToStation";
 
 
-interface RemoveBikeToStation{
-  externalStationId: string
-  externalBikeId: string
-}
+
 type Props = {
   bikeId: number;
   externalBikeId: string;

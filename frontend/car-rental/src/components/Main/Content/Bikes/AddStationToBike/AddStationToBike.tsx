@@ -3,15 +3,18 @@ import { useActionDrawer } from "../../../ActionDrawer/ActionDrawerContext";
 import { useState } from "react";
 import { Wrapper } from "../../../../../pages/App/App.styles";
 import { FormControlStyled } from "../../../ActionDrawer/styles/FormControlStyled";
-import { BikeModels } from "../../../../../assets/BikeModels";
 import dayjs, { Dayjs } from "dayjs";
 import { ConfirmationButtonWrapper } from "../../../ActionDrawer/styles/ConfirmationButtonWrapper";
-import { bikeApiUrl, stationApiUrl } from "../../../../../consts";
+import { bikeApiUrl, bikeAtStationApiUrl, stationApiUrl } from "../../../../../consts";
 import { Bike } from "../dtos/Bike";
 import { formatDateOnly, SaveBike } from "../dtos/SaveBike";
 import { useCreate } from "../../../../../hooks/useCreate";
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { AddBikeToStation } from "../dtos/AddBikeToStation";
+import { useFetch } from "../../../../../hooks/useFetch";
+import { Station } from "../../Stations/dtos/Station";
+import { ContentEnum } from "../../content.enum";
+import { useRefresh } from "../../../../../contexts/RefreshContext";
 
 type Props = {
   bike: Bike;
@@ -19,36 +22,41 @@ type Props = {
 
 export const AddStationToBike = ({bike}: Props) => {
   const { publishSuccess } = useActionDrawer();
-  const [selectedModel, setSelectedModel] = useState<string>(bike?.model ?? '');
-  const [selectedColor, setSelectedColor] = useState<string>(bike?.color ?? '');
-  const [date, setDate] = useState<Dayjs | null>(dayjs(bike?.lastServiceDate));
-  const { create } = useCreate<AddBikeToStation>(stationApiUrl);
+  const { create } = useCreate<AddBikeToStation>(bikeAtStationApiUrl);
+  const { refreshKeys, triggerRefresh } = useRefresh();
+  const { data: stations, loading, error } = useFetch<Station[]>(stationApiUrl, refreshKeys[ContentEnum.STATIONS]);
+  const [selectedExternalId, setSelectedExternalId] = useState<string>('');
 
   const handleAdd = () => {
       create({
-        externalBikeId: bike.externalId
-        }, publishSuccess);
+        externalBikeId: bike.externalId,
+        externalStationId: selectedExternalId
+      }, publishSuccess);
     
   }
   return ( 
     <Wrapper>
-      <FormControlStyled>
-        <InputLabel id="select-model-label">Model</InputLabel>
-        <Select
-          id="select-model"
-          value={selectedModel}
-          label="Model"
-          onChange={(e) => setSelectedModel(e.target.value)}>
-          {BikeModels.map((model) => (
-            <MenuItem key={model.id} value={model.name}>
-              {model.name}
-            </MenuItem>
-          ))}
-        </Select>
-      </FormControlStyled>
+      {loading && <p>Loading stations...</p>}
+      {error && <p>Error: {error}</p>}
+      {stations && 
+        <FormControlStyled>
+          <InputLabel id="select-model-label">Station</InputLabel>
+          <Select
+            id="select-model"
+            value={selectedExternalId}
+            label="Station"
+            onChange={(e) => setSelectedExternalId(e.target.value)}>
+            {stations.map((station) => (
+              <MenuItem key={station.id} value={station.externalId}>
+                {station.code} - {station.location}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControlStyled>
+      }
       <ConfirmationButtonWrapper>
           <Button
-            disabled={selectedModel === '' || selectedColor === '' || date === null}
+            disabled={loading || error != null || !stations}
             onClick={() => handleAdd()}
             variant="contained" startIcon={<AddBoxIcon />}>Add</Button>
       </ConfirmationButtonWrapper>
