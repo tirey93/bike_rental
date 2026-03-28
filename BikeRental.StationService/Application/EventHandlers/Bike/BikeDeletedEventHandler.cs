@@ -3,7 +3,7 @@ using BikeRental.StationService.Domain.Entities.External;
 using BikeRental.StationService.Domain.Repositories;
 using Rebus.Handlers;
 
-namespace BikeRental.StationService.Application.EventHandlers
+namespace BikeRental.StationService.Application.EventHandlers.Bike
 {
     public class BikeDeletedEventHandler : IHandleMessages<BikeDeletedEvent>
     {

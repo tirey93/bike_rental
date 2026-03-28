@@ -2,7 +2,7 @@ using BikeRental.BikeAtStationService.Domain.Repositories;
 using BikeRental.StationService.Contracts.Events;
 using Rebus.Handlers;
 
-namespace BikeRental.BikeAtStationService.Application.EventHandlers
+namespace BikeRental.BikeAtStationService.Application.EventHandlers.Station
 {
     public class StationRemovedEventHandler : IHandleMessages<StationRemovedEvent>
     {

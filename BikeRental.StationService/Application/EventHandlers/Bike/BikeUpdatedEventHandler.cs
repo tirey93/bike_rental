@@ -3,7 +3,7 @@ using BikeRental.StationService.Domain.Entities.External;
 using BikeRental.StationService.Domain.Repositories;
 using Rebus.Handlers;
 
-namespace BikeRental.StationService.Application.EventHandlers
+namespace BikeRental.StationService.Application.EventHandlers.Bike
 {
     public class BikeUpdatedEventHandler : IHandleMessages<BikeUpdatedEvent>
     {
@@ -19,7 +19,7 @@ namespace BikeRental.StationService.Application.EventHandlers
             var bike = await _bikeRepository.Get(message.ExternalBikeId);
             if (bike == null)
             {
-                await _bikeRepository.AddAsync(new Bike(message.ExternalBikeId)
+                await _bikeRepository.AddAsync(new Domain.Entities.External.Bike(message.ExternalBikeId)
                 {
                     Model = message.Model,
                     Color = message.Color

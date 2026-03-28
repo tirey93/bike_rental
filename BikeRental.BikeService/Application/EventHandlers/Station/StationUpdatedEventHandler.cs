@@ -3,7 +3,7 @@ using BikeRental.BikeService.Domain.Repositories;
 using BikeRental.StationService.Contracts.Events;
 using Rebus.Handlers;
 
-namespace BikeRental.BikeService.Application.EventHandlers
+namespace BikeRental.BikeService.Application.EventHandlers.Station
 {
     public class StationUpdatedEventHandler : IHandleMessages<StationUpdatedEvent>
     {
@@ -18,7 +18,7 @@ namespace BikeRental.BikeService.Application.EventHandlers
             var station = await _stationRepository.Get(message.ExternalStationId);
             if (station == null)
             {
-                await _stationRepository.AddAsync(new Station(message.ExternalStationId)
+                await _stationRepository.AddAsync(new Domain.Entities.External.Station(message.ExternalStationId)
                 {
                     Location = message.Location,
                     Code = message.Code,

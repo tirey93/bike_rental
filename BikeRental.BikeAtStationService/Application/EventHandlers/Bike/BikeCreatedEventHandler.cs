@@ -3,7 +3,7 @@ using BikeRental.BikeAtStationService.Domain.Repositories;
 using BikeRental.BikeService.Contracts.Events;
 using Rebus.Handlers;
 
-namespace BikeRental.BikeAtStationService.Application.EventHandlers
+namespace BikeRental.BikeAtStationService.Application.EventHandlers.Bike
 {
     public class BikeCreatedEventHandler : IHandleMessages<BikeCreatedEvent>
     {
@@ -19,7 +19,7 @@ namespace BikeRental.BikeAtStationService.Application.EventHandlers
             var exists = await _bikeRepository.IsExists(message.ExternalBikeId);
             if (!exists)
             {
-                await _bikeRepository.AddBike(new Bike(message.ExternalBikeId));
+                await _bikeRepository.AddBike(new Domain.Entities.External.Bike(message.ExternalBikeId));
                 await _bikeRepository.SaveChangesAsync();
             }
         }
